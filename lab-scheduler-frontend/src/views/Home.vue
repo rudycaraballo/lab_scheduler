@@ -1,15 +1,17 @@
-<script setup>
+<!-- <script setup>
 defineProps({
   msg: {
     type: String,
     required: true
   }
 })
-</script>
+</script> -->
 
 <template>
   <div class="greetings">
-    <h1 class="green">Hardcoded {{ msg }}</h1>
+    <h1 class="green">This is the landing page</h1>
+    <RouterLink to="/login">login</RouterLink>
+    <button>Log In</button>
   </div>
 </template>
 
