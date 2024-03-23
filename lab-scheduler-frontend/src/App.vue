@@ -1,22 +1,15 @@
 <!--importing components from vue-->
-<!-- <script setup>
-import HomePage from "./components/pages/HomePage.vue";
-</script> -->
+<script setup>
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
+</script>
 
 <template>
-  <header>
-    <!-- TODO: add Unigather genrated logo -->
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-  </header>
-  <div>
-    <router-view />
-  </div>
+  <!-- TODO: add Unigather genrated logo -->
+  <!-- TODO: add a navbar that will persist throughout the website -->
+  <Navbar />
+  <router-view />
+  <Footer />
 </template>
 
 <style scoped>
@@ -24,4 +17,3 @@ header {
   line-height: 1.5;
 }
 </style>
-./views/HomePage.vue
