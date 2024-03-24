@@ -1,6 +1,9 @@
  <script setup>
 import Hero from "../components/Hero.vue" 
 import RoomCard from "../components/RoomHomeCard.vue"
+
+let testEnv = () => console.log(import.meta.env.VITE_MSAL_AUTHORITY);
+
 defineProps({
   msg: {
     type: String,
