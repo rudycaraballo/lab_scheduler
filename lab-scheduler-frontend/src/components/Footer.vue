@@ -13,10 +13,11 @@ let currYear = d.getFullYear();
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><RouterLink to="/" class="nav-link px-2 text-body-secondary">Home</RouterLink></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+      <li class="nav-item"><RouterLink to="/about" class="nav-link px-2 text-body-secondary">About</RouterLink></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
     </ul>
   </footer>

@@ -44,6 +44,7 @@ defineProps({
 <style scoped>
 .hero-section {
   height: 75vh !important;
+  margin-top: 70px;
 }
 
 .rm-section {
