@@ -1,21 +1,20 @@
 <script setup>
-import RoomCard from "../components/RoomHomeCard.vue";
+import RoomCard from "../components/HomeCard.vue";
 import Pagination from "@/components/Pagination.vue";
+import DescriptionCard from "@/components/DescriptionCard.vue";
 </script>
 <template>
 
-    <div class="album py-5 ">
+  
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <RoomCard />
-        <RoomCard />
-        <RoomCard />
-      </div>
+        <DescriptionCard route="/room-desc"/>
+        <DescriptionCard route="/room-desc"/>
+        <DescriptionCard route="/room-desc"/>
+        <DescriptionCard route="/room-desc"/>
+        <DescriptionCard route="/room-desc"/>
+        <DescriptionCard route="/room-desc"/>
+        <Pagination />
+   
     </div>
-  </div>
-
-  <div class="container">
-    <Pagination />
-  </div>
 
 </template>

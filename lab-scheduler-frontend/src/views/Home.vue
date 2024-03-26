@@ -1,6 +1,6 @@
  <script setup>
 import Hero from "../components/Hero.vue" 
-import RoomCard from "../components/RoomHomeCard.vue"
+import RoomCard from "../components/HomeCard.vue"
 
 let testEnv = () => console.log(import.meta.env.VITE_MSAL_AUTHORITY);
 
@@ -29,7 +29,7 @@ defineProps({
     </div>
   </div>
 
-  <div class="container">
+  <div id="features" class="container">
     <hr class="featurette-divider">
   <div class="row featurette">
     <div class="col-md-7">
