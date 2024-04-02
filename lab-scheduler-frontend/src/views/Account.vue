@@ -1,6 +1,5 @@
 <script setup>
 import AccountBookingCard from "@/components/AccountBookingCard.vue"
-import Modal from "@/components/ModalConfirm.vue"
 </script>
 
 <template>
@@ -9,7 +8,6 @@ import Modal from "@/components/ModalConfirm.vue"
             <h1>You have no bookings </h1>
             <h3>or</h3>
             <h1>Your Current Bookings</h1>
-            <Modal />
         </div>
         <AccountBookingCard />
         <router-view />

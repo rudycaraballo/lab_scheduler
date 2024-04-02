@@ -1,38 +1,25 @@
 <template>
-  <header class="site-header js-site-header">
-    <div class="container-fluid">
-      <div class="row align-items-center">
-        <div class="col-6 col-lg-4 site-logo" data-aos="fade">
-          <a href="index.html">Sogo Hotel</a>
-        </div>
-        <div class="col-6 col-lg-8">
-          <div class="site-menu-toggle js-site-menu-toggle" data-aos="fade">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <!-- END menu-toggle -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
 
-          <div class="site-navbar js-site-navbar">
-            <nav role="navigation">
-              <div class="container">
-                <div class="row full-height align-items-center">
-                  <div class="col-md-6 mx-auto">
-                    <ul class="list-unstyled menu">
-                      <li class="active"><a href="index.html">Home</a></li>
-                      <li><a href="rooms.html">Rooms</a></li>
-                      <li><a href="about.html">About</a></li>
-                      <li><a href="events.html">Events</a></li>
-                      <li><a href="contact.html">Contact</a></li>
-                      <li><a href="reservation.html">Reservation</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
-  </header>
+  </div>
+</div>
 </template>
