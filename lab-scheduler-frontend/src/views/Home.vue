@@ -1,6 +1,7 @@
  <script setup>
 import Hero from "../components/Hero.vue" 
 import RoomCard from "../components/HomeCard.vue"
+import FAQ from  "../components/FAQS.vue"
 
 let testEnv = () => console.log(import.meta.env.VITE_MSAL_AUTHORITY);
 
@@ -41,6 +42,9 @@ defineProps({
     </div>
   </div>
   </div>
+  
+    <FAQ />
+   
 
 </template>
 

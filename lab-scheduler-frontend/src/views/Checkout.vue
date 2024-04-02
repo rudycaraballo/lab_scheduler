@@ -35,37 +35,51 @@ import CheckoutCard from "@/components/CheckoutCard.vue";
               </div>
             </div>
 
+            
+            <div class="col-12">
+              <label for="email" class="form-label">700 # </label>
+              <input type="email" class="form-control" id="email" placeholder="" required>
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
             <div class="col-12">
               <label for="email" class="form-label">SUNY OW Email </label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+              <input type="email" class="form-control" id="email" placeholder="" required>
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="col-12">
-              <label for="email" class="form-label">Alternate Email <span class="text-body-secondary">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <label for="email" class="form-label">Alternate Email </label>
+              <input type="email" class="form-control" id="email" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="col-12">
-              <label for="email" class="form-label">Number of expected attendants<span class="text-body-secondary">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <label for="email" class="form-label">Number of expected attendants</label>
+              <input type="email" class="form-control" id="email" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="col-12">
-              <label for="email" class="form-label">Subject/Number/Section<span class="text-body-secondary">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <label for="email" class="form-label">Subject/Number/Section</label>
+              <input type="email" class="form-control" id="email" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
+
+            <div class="form-group">
+            <label for="exampleFormControlTextarea1">IT Service Ticket</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
 
          
         
@@ -73,7 +87,7 @@ import CheckoutCard from "@/components/CheckoutCard.vue";
 
         <hr class="my-4">
 
-        <button class="w-100 btn btn-primary btn-lg" type="submit"><RouterLink to="/room-desc" class="nav-link active">Confirm Booking</RouterLink></button>
+        <button class="w-100 btn btn-primary btn-lg" type="submit"><RouterLink to="/success" class="nav-link active">Confirm Booking</RouterLink></button>
         </form>
       </div>
     </div>

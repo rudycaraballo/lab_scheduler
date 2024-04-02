@@ -8,9 +8,9 @@ import Account from "../views/Account.vue";
 import Test from "../views/Test.vue";
 import About from "../views/About.vue";
 import Rooms from "../views/Rooms.vue";
-import Faqs from "../views/FAQS.vue";
 import Success from "@/views/Success.vue";
-import RoomDes from "../views/RoomDescription.vue"
+import RoomDes from "../views/RoomDescription.vue";
+import AdminDash from "../views/AdminDash.vue";
 // @ts-ignore
 import Dashboard from "../components/pages/Dashboard.vue";
 // import Rooms from "../views/Rooms.vue";
@@ -40,6 +40,11 @@ const routes = [
     //   requiresAuth: true
     // } 
   },
+  {
+    path:"/admin",
+    name: "admin",
+    component: AdminDash
+  },
   { path: "/success", 
   name: "success", 
   component: Success 
@@ -51,11 +56,6 @@ const routes = [
   { path: "/rooms", 
     name: "rooms", 
     component: Rooms 
-  },
-  {
-    path:"/faqs",
-    component: Faqs,
-    name: "faqs"
   },
   {
     path:"/room-desc",

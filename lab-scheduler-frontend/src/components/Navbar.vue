@@ -23,9 +23,6 @@ let goHome = () => router.push("/")
             <li class="nav-item">
               <RouterLink to="/about" class="nav-link active">About</RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink to="/faqs" class="nav-link active">FAQS</RouterLink>
-            </li>
             <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dropdown
@@ -52,9 +49,7 @@ let goHome = () => router.push("/")
 
   margin-left: 10px;
 }
-.fixed-top {
-position: sticky;
-}
+
 
 
 </style>

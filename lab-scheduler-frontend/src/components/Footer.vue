@@ -16,7 +16,6 @@ let currYear = d.getFullYear();
       <li class="nav-item"><RouterLink to="/" class="nav-link px-2 text-body-secondary">Home</RouterLink></li>
       <li class="nav-item"><a href="#features" class="nav-link px-2 text-body-secondary">Features</a></li>
       <li class="nav-item"><RouterLink to="/rooms" class="nav-link px-2 text-body-secondary">Rooms</RouterLink></li>
-      <li class="nav-item"><RouterLink to="/faqs" class="nav-link px-2 text-body-secondary">FAQS</RouterLink></li>
       <li class="nav-item"><RouterLink to="/about" class="nav-link px-2 text-body-secondary">About</RouterLink></li>
     
     </ul>

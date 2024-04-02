@@ -1,11 +1,18 @@
-<!-- <script setup>
-import router from
-</script> -->
+<script setup>
+import AccountBookingCard from "@/components/AccountBookingCard.vue"
+import Modal from "@/components/ModalConfirm.vue"
+</script>
 
 <template>
-      <h1>This is the Account page</h1>
-      <RouterLink to="/login" class="nav-link active">Log In</RouterLink>
-      <button><RouterLink to="/" class="nav-link active">Log In</RouterLink></button>
-      <router-view />
+    <div class="container">
+        <div class="text-center">
+            <h1>You have no bookings </h1>
+            <h3>or</h3>
+            <h1>Your Current Bookings</h1>
+            <Modal />
+        </div>
+        <AccountBookingCard />
+        <router-view />
+    </div>
   </template>
   
