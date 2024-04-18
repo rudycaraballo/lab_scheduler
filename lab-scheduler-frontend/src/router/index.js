@@ -11,6 +11,7 @@ import Rooms from "../views/Rooms.vue";
 import Success from "@/views/Success.vue";
 import RoomDes from "../views/RoomDescription.vue";
 import AdminDash from "../views/AdminDash.vue";
+import SignUp from "../views/SignUp.vue"
 // @ts-ignore
 import Dashboard from "../components/pages/Dashboard.vue";
 // import Rooms from "../views/Rooms.vue";
@@ -24,6 +25,11 @@ const routes = [
     path: "/login",
     name: "login", 
     component: LogIn 
+  },
+  {
+    path: "/sign-up",
+    name: "sign-up", 
+    component: SignUp 
   },
   {
     path: "/test",

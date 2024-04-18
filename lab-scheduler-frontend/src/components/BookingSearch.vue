@@ -9,7 +9,7 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <label for="firstName" class="form-label">Date</label>
+              <label for="date" class="form-label">Date</label>
               <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
               <div class="invalid-feedback">
                 Valid first name is required.

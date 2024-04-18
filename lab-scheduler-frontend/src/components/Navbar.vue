@@ -36,7 +36,8 @@ let goHome = () => router.push("/")
             </li> -->
     
           </ul>
-          <RouterLink to="/account" class="nav-link active">Account</RouterLink>
+          <RouterLink to="/account" class="nav-link active account">Account</RouterLink>
+          <RouterLink to="/sign-up" class="nav-link active sign-up">Sign Up</RouterLink>
           <button id="lg-i-btn" class="btn btn-primary btn-sm" type="submit"><RouterLink to="/login" class="nav-link active">Log In</RouterLink></button>
         </div>
       </div>
@@ -49,6 +50,11 @@ let goHome = () => router.push("/")
 
   margin-left: 10px;
 }
+
+.sign-up {
+  margin-left: 10px;
+}
+
 
 
 

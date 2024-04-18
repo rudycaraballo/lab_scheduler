@@ -1,26 +1,52 @@
+<script setup>
+import axios from "axios";
+
+let email = ""
+let password = ""
+
+const login = async () => {
+  
+  axios.post('http://localhost:3000/login', {
+    email: email,
+    password: password
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    alert(error.message);
+  });
+}
+
+const signUp = async () => {
+  //Check if user input correct credentials
+
+ }
+
+</script>
+
 <template>
+
  <main class="form-signin w-100 m-auto">
   <form>
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 fw-normal">Log In</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input v-model="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
 
     <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        Remember me
-      </label>
     </div>
-    <button class="btn btn-primary w-100 py-2" type="submit"><RouterLink to="/account" class="nav-link active">Log In</RouterLink></button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
-  </form>
+    <p class="mt-5 mb-3 text-body-secondary">Don't have an account? <RouterLink to="/sign-up" >Sign Up</RouterLink></p>
+    <div class="row">
+      <button @click="login" class="btn btn-primary w-100 py-2 col-lg-6" >Log In</button>
+    </div>
+    </form>
 </main>
 </template>
 
@@ -29,6 +55,10 @@
   max-width: 330px;
   margin-top: 100px !important;
   padding: 1rem;
+}
+
+.form-floating {
+    margin-bottom: 10px;
 }
 
 </style>
