@@ -53,6 +53,7 @@ let user = {
     lname: "",
     idNum: "",
     pword: "",
+    email:"",
     altEmail: "",
     confirmPword: "",
 }
@@ -67,27 +68,31 @@ const signUp = async () => {
             return
         }
     }
-
-    console.log(user.fname)
+    //Check that password are equal
     if(user.confirmPword != user.pword) {
         alert("Passwords do not match please try again");
         event.preventDefault();
+        return;
+    }
+    //Check that email is a oldwestbury email
+    const isOwEmail = /^[^\s@]+@oldwestbury\.edu$/;
+    console.log(isOwEmail.test(user.email));
+    console.log(user.email);
+    if(!isOwEmail.test(user.email)) {
+        alert("Your SUNY Old Westbury Email is not a valid email. Please try again")
         return;
     }
 //make axios call
 //confirm a 200 response code that everything was added
 //take user to account page
   
-//   axios.post('http://localhost:3000/login', {
-//     email: email,
-//     password: password
-//   })
-//   .then(function (response) {
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     alert(error.message);
-//   });
+  axios.post('http://localhost:3000/signup', user)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    alert(error.message);
+  });
 }
 
 //TODO: do this after main functionality is done

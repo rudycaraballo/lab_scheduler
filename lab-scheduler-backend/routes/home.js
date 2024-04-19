@@ -1,8 +1,8 @@
 let express = require('express');
 let homeRouter = express.Router();
 
-homeRouter.get('/', (req, res) => {
-    res.render("landing", {title: "This will be the homepage"})
+homeRouter.get('/signup', (req, res) => {
+    res.send("signup")
 })
 
 module.exports = homeRouter;

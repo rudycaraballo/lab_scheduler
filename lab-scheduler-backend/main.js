@@ -1,26 +1,59 @@
-const express = require("express");
+// const express = require("express");
+import express from "express"
+import bodyParser from "body-parser";
+import cors from "cors";
+import mysql from 'mysql2';
+import fs from 'fs';
+// import signUpRouter from "./routes/routes.js"
+import addUser  from "./database/addUser.js";
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
 const app = express();
 const port = 3000;
-const frontend = "../lab-scheduler/frontend2";
-const homeRouter = require("./routes/home.js");
-const bookingRouter = require("./routes/booking.js");
-const loginRouter = require("./routes/login.js");
+// const {homeRouter} = require('./routes/home.js');
 
+// const {addUser} = require("./database/addUser.js");
 
-app.set("views", "views");
-app.set("view engine", "ejs");
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
+//TODO: use express routing instead of this ghetto shit
+//TODO: sign up endpoint, check if user exists, if not add to db and return 200 status
 
-// use res.render to load up an ejs view file
+// app.use(signUpRouter);
 
-// index page
-app.use("/", homeRouter);
-app.use("/booking", bookingRouter);
-app.use("/login", loginRouter);
+app.post('/signup', async (req, res) => {
+  let userObj = req.body;
 
+  let db = mysql.createConnection({
+    host:"unigathermysql.mysql.database.azure.com", 
+    user:"bigdorya", password:"owgather123!",
+    database:"unigather",
+    port:3306, 
+    ssl:{ca:fs.readFileSync("DigiCertGlobalRootCA.crt.pem")}
+    });
+
+  let addUserStatus = await addUser(db, userObj);
+
+  res.status(addUserStatus)  
+  res.send("recieved sign up credentials")
+})
+
+app.get('/', async (req, res) => {
+  try {
+    await addUser();
+    res.status(200);
+  }catch (err) {
+    res.status(err);
+  }
+  res.send('Hello World!')
+})
+
+app.post("/login", (req, res) => {
+  console.log(req.body)
+  res.send("welcome")
+})
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  console.log(`Example app listening on port ${port}`)
+})
