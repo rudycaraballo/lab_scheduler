@@ -2,10 +2,12 @@
 import express from "express"
 import bodyParser from "body-parser";
 import cors from "cors";
-import mysql from 'mysql2';
+// import mysql from 'mysql2';
+import * as mysqlp from 'mysql2/promise';
 import fs from 'fs';
 // import signUpRouter from "./routes/routes.js"
 import addUser  from "./database/addUser.js";
+import getRooms from "./database/getRooms.js";
 // const bodyParser = require('body-parser');
 // const cors = require('cors');
 const app = express();
@@ -38,6 +40,14 @@ app.post('/signup', async (req, res) => {
   res.status(addUserStatus)  
   res.send("recieved sign up credentials")
 })
+
+app.get('/available-rooms', async (req, res) => {
+  //TODO: handle error resposne
+  let results = await getRooms();
+  res.send(results)
+
+})
+
 
 app.get('/', async (req, res) => {
   try {
