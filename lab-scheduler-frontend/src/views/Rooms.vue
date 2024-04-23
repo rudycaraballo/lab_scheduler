@@ -16,10 +16,6 @@ onBeforeMount(async () => {
   } catch (error) {
     console.error('Error fetching users:', error);
   }
-
-  for (let room in rooms) {
-    console.log(room);
-  }
 });
 </script>
 
@@ -28,10 +24,7 @@ onBeforeMount(async () => {
 
   <div class="container">
 
-    <DescriptionCard
-      v-for="room in rooms" :key="room.id" :room="room"
-      route="/room-desc"
-    />
+    <DescriptionCard v-for="room in rooms" :key="room.id" :room="room"/>
 
     <Pagination />
   </div>

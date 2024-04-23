@@ -11,67 +11,58 @@ import Rooms from "../views/Rooms.vue";
 import Success from "@/views/Success.vue";
 import RoomDes from "../views/RoomDescription.vue";
 import AdminDash from "../views/AdminDash.vue";
-import SignUp from "../views/SignUp.vue"
+import SignUp from "../views/SignUp.vue";
 // @ts-ignore
 import Dashboard from "../components/pages/Dashboard.vue";
 // import Rooms from "../views/Rooms.vue";
 
 const routes = [
-  { path: "/", 
-    name: "home", 
-    component: Home 
-  },
+  { path: "/", name: "home", component: Home },
   {
     path: "/login",
-    name: "login", 
-    component: LogIn 
+    name: "login",
+    component: LogIn,
   },
   {
     path: "/sign-up",
-    name: "sign-up", 
-    component: SignUp 
+    name: "sign-up",
+    component: SignUp,
   },
   {
     path: "/test",
-    name: "test", 
-    component: Test
+    name: "test",
+    component: Test,
   },
-  { 
-    path: "/account", 
-    name: "account", 
-    component: Account, 
+  {
+    path: "/account",
+    name: "account",
+    component: Account,
     // meta: {
     //   requiresAuth: true
     // }
   },
-  { path: "/checkout", 
-    name: "checkout", 
+  {
+    path: "/checkout/:rmNumCheckout/:buildingNameCheckout",
+    name: "checkout",
     component: Checkout,
+    props: true,
     // meta: {
     //   requiresAuth: true
-    // } 
+    // }
   },
   {
-    path:"/admin",
+    path: "/admin",
     name: "admin",
-    component: AdminDash
+    component: AdminDash,
   },
-  { path: "/success", 
-  name: "success", 
-  component: Success 
-  },
-  { path: "/about", 
-    name: "about", 
-    component: About 
-  },
-  { path: "/rooms", 
-    name: "rooms", 
-    component: Rooms 
-  },
+  { path: "/success", name: "success", component: Success },
+  { path: "/about", name: "about", component: About },
+  { path: "/rooms", name: "rooms", component: Rooms },
   {
-    path:"/room-desc",
+    path: "/room-desc/:rmNum/:buildingName",
     component: RoomDes,
-    name: "room-desc"
+    name: "room-desc",
+    props: true,
   },
 ];
 
