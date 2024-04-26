@@ -1,6 +1,14 @@
-let addUser = async (db, userObj) => {
-console.log("add user is being automatically called");
-  let status;
+let addUser = async (userObj, mysql, fs) => {
+
+  let db = mysql.createConnection({
+    host:"unigathermysql.mysql.database.azure.com", 
+    user:"bigdorya", password:"owgather123!",
+    database:"unigather",
+    port:3306, 
+    ssl:{ca:fs.readFileSync("DigiCertGlobalRootCA.crt.pem")}
+    });
+
+
   try {
     db.connect((err) => {
       if (err) throw err.message;
@@ -20,15 +28,11 @@ console.log("add user is being automatically called");
         console.log("Added new user to users table", results);
       }
     );
-
-    status = 200;
   } catch (err) {
-    console.error(err);
-    status = 500;
+    throw err
   } finally {
     db.end();
     console.log("closed db connection");
-    return status;
   }
 };
 

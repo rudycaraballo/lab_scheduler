@@ -1,11 +1,13 @@
 <script setup>
 import CheckoutCard from "@/components/CheckoutCard.vue";
+import { ref } from 'vue';
 //TODO: check that props passed arent empty, This would mean /checkout endpoint was got raw
 
 const props = defineProps(['rmNumCheckout', "buildingNameCheckout"])
+const isChecked = ref(false);
 
-console.log(props.rmNumCheckout);
-console.log(props.buildingNameCheckout);
+
+// State to track whether the checkbox is checked
 
 let checkoutForm = {
   fname:"",
@@ -18,12 +20,37 @@ let checkoutForm = {
   itTicket:""
 }
 
-const checkout = async () => {
-let x =0
+const emailTicket = async () => {
+
 }
-//is attendants bigger then capacity?
 
+const checkout = async () => {
+      //check for any empty missing values
+      for (const [key, value] of Object.entries(checkoutForm)) {
+        console.log(key);
+        if (value === "" && key !== "section" && key !== "itTicket") {
+            alert("One of your inputs are empty, Please check and try again")
+            event.preventDefault();
+            return
+        }
+    }
 
+    //Check that email is a oldwestbury email
+    const isOwEmail = /^[^\s@]+@oldwestbury\.edu$/;
+    console.log(isOwEmail.test(checkoutForm.owEmail));
+    console.log(checkoutForm.owEmail);
+
+    if(!isOwEmail.test(checkoutForm.owEmail)) {
+        alert("Your SUNY Old Westbury Email is not a valid email. Please try again")
+        event.preventDefault();
+        return;
+      }
+      //is attendants bigger then capacity?
+
+      if(checkoutForm.itTicket !== "") {
+        
+      }
+}
 </script>
 
 <template>
@@ -41,7 +68,7 @@ let x =0
       </div>
       
       <div class="col-md-5 col-lg-6">
-        <form class="needs-validation" novalidate>
+        <form @submit.stop.prevent="submit" class="needs-validation" novalidate>
           <div class="row g-3">
             <div class="col-sm-6">
               <label  for="firstName" class="form-label">First name</label>
@@ -100,7 +127,14 @@ let x =0
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="d-block my-3">
+              <div class="custom-control custom-checkbox">
+          <input v-model="isChecked" type="checkbox" class="custom-control-input" id="same-address">
+          <label class="custom-control-label" for="same-address">Need IT Support For The Event?</label>
+        </div>
+        </div>
+
+            <div v-if="isChecked" class="form-group">
             <label for="exampleFormControlTextarea1">IT Service Ticket</label>
             <textarea v-model="checkoutForm.itTicket" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
@@ -111,9 +145,16 @@ let x =0
 
         <button @click="checkout" class="w-100 btn btn-primary btn-lg" type="submit">Confirm Booking</button>
         </form>
+
       </div>
     </div>
   </main>
     </div>
   </template>
+
+  <style scoped>
+  .custom-control-input {
+    padding-left: 10px !important;
+  }
+  </style>
   

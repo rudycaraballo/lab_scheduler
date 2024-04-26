@@ -1,8 +1,5 @@
-import * as mysqlp from 'mysql2/promise';
-import fs from 'fs';
+let getRooms = async(mysqlp, fs) => {
 
-let getRooms = async() => {
-  console.log("i am being called");
   const pool = mysqlp.createPool({
     host: "unigathermysql.mysql.database.azure.com",
     user: "bigdorya",
@@ -19,7 +16,7 @@ let getRooms = async() => {
     const [results] = await pool.query(
       `SELECT * FROM buildinginfo INNER JOIN roominfo ON buildinginfo.BuildingID = roominfo.BuildingID;`
     );
-    console.log("Results:", results);
+    console.log("Rooms requested");
     return results;
   } catch (err) {
     console.error("Error during the query.", err);

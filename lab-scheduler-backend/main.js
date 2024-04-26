@@ -1,20 +1,19 @@
-// const express = require("express");
 import express from "express"
 import bodyParser from "body-parser";
 import cors from "cors";
-// import mysql from 'mysql2';
-import * as mysqlp from 'mysql2/promise';
+import mysql from 'mysql2';
 import fs from 'fs';
-// import signUpRouter from "./routes/routes.js"
+import * as mysqlp from 'mysql2/promise';
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
+
+//database functions
 import addUser  from "./database/addUser.js";
 import getRooms from "./database/getRooms.js";
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
+import findUser from "./database/findUser.js";
+
 const app = express();
 const port = 3000;
-// const {homeRouter} = require('./routes/home.js');
-
-// const {addUser} = require("./database/addUser.js");
 
 // Middleware
 app.use(bodyParser.json());
@@ -27,24 +26,30 @@ app.use(cors());
 app.post('/signup', async (req, res) => {
   let userObj = req.body;
 
-  let db = mysql.createConnection({
-    host:"unigathermysql.mysql.database.azure.com", 
-    user:"bigdorya", password:"owgather123!",
-    database:"unigather",
-    port:3306, 
-    ssl:{ca:fs.readFileSync("DigiCertGlobalRootCA.crt.pem")}
-    });
+  try {
+    let doesUserExist = await findUser(userObj.email);
+    console.log("does user exist? " + doesUserExist);
 
-  let addUserStatus = await addUser(db, userObj);
+    if(doesUserExist) {
+      res.status(409).send("user already exists")
+      return;
+    }
 
-  res.status(addUserStatus)  
-  res.send("recieved sign up credentials")
+    await addUser(userObj, mysql, fs);
+    res.status(201).send('User registered');
+  } catch (err) {
+    console.log(err);
+      res.status(500).send();
+  }
 })
 
 app.get('/available-rooms', async (req, res) => {
-  //TODO: handle error resposne
-  let results = await getRooms();
-  res.send(results)
+  try {
+    let results = await getRooms(mysqlp, fs);
+    res.send(results)
+  } catch(err) {
+    console.log(err);
+  }
 
 })
 
@@ -59,10 +64,30 @@ app.get('/', async (req, res) => {
   res.send('Hello World!')
 })
 
-app.post("/login", (req, res) => {
-  console.log(req.body)
-  res.send("welcome")
-})
+// app.post("/login", (req, res) => {
+//   console.log(req.body)
+//   res.send("welcome")
+// });
+
+app.post('/login', async (req, res) => {
+  let doesUserExist = await findUser(req.body.email);
+  res.send(doesUserExist ? "user found" : "user not found")
+
+  // const user = users.find(user => user.username === req.body.username);
+  // if (user == null) {
+  //     return res.status(400).send('Cannot find user');
+  // }
+  // try {
+  //     if (await bcrypt.compare(req.body.password, user.password)) {
+  //         const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET);
+  //         res.json({ accessToken });
+  //     } else {
+  //         res.send('Not Allowed');
+  //     }
+  // } catch {
+  //     res.status(500).send();
+  // }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

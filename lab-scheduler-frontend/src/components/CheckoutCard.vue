@@ -4,7 +4,9 @@ const props = defineProps(['rmNumCheckout', "buildingNameCheckout"])
 console.log(props.rmNumCheckout);
 console.log(props.buildingNameCheckout);
 
-const imageUrl = ref(`/src/assets/images/rm${props.rmNumCheckout}.jpg`);
+let roomNumFixed = props.rmNumCheckout < 1000 ? ("0" + props.rmNumCheckout) : props.rmNumCheckout;
+const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
+
 //TODO: check that the room in the link even exists in DB
 //TODO: add
 </script>

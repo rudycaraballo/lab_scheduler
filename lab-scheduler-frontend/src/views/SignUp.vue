@@ -1,7 +1,7 @@
 
 <template>
 <main class="form-signin w-100 m-auto">
-  <form>
+  <form @submit.stop.prevent="submit">
     <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
 
     <div class="form-floating">
@@ -47,6 +47,11 @@
 
 <script setup >
 import axios from "axios";
+import { useRouter } from 'vue-router';
+import bcrypt from "bcryptjs";
+
+
+const router = useRouter();
 
 let user = {
     fname: "",
@@ -64,41 +69,49 @@ const signUp = async () => {
     for (const [key, value] of Object.entries(user)) {
         if (value === "" ) {
             alert("One of your inputs are empty, Please check and try again")
-            event.preventDefault();
+    
             return
         }
     }
     //Check that password are equal
     if(user.confirmPword != user.pword) {
         alert("Passwords do not match please try again");
-        event.preventDefault();
+       
         return;
     }
     //Check that email is a oldwestbury email
     const isOwEmail = /^[^\s@]+@oldwestbury\.edu$/;
-    console.log(isOwEmail.test(user.email));
-    console.log(user.email);
     if(!isOwEmail.test(user.email)) {
         alert("Your SUNY Old Westbury Email is not a valid email. Please try again")
         return;
     }
+
+    //TODO: check a regular email is input
 //make axios call
 //confirm a 200 response code that everything was added
 //take user to account page
-  
-  axios.post('http://localhost:3000/signup', user)
+
+user.pword = await bcrypt.hash(user.pword, 10);  
+  await axios.post('http://localhost:3000/signup', user)
   .then(function (response) {
-    console.log(response);
+    //TODO check that response was successful
+    if(response.status == 201) {
+      router.push('/success')
+    }  
+
   })
   .catch(function (error) {
-    alert(error.message);
+   
+    if(error.response.status == 409) {
+      alert("There is an account that already exists for this email")
+    } else {
+      alert(error.message);
+    }
   });
+
 }
 
 //TODO: do this after main functionality is done
-//Check that email is a OW email
-//check that password feilds are both equal
-//submit the application to the database
 //load their profile and go to the account page
 
 </script>

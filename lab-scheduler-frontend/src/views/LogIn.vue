@@ -28,7 +28,7 @@ const signUp = async () => {
 <template>
 
  <main class="form-signin w-100 m-auto">
-  <form>
+  <form @submit.stop.prevent="submit">
     <h1 class="h3 mb-3 fw-normal">Log In</h1>
 
     <div class="form-floating">

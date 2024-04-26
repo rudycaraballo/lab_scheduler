@@ -2,7 +2,8 @@
 import { ref, defineProps } from 'vue';
 const props = defineProps(['room'])
 
-const imageUrl = ref(`/src/assets/images/rm${props.room.RoomNum}.jpg`);
+let roomNumFixed = props.room.RoomNum < 1000 ? ("0" + props.room.RoomNum) : props.room.RoomNum;
+const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 const route = `room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
 
 </script>
@@ -14,9 +15,9 @@ const route = `room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary-emphasis">{{ room.BuildingName }}</strong>
-          <h3 class="mb-0">Room #{{room.RoomNum}}</h3>
+          <h3 class="mb-0">Room #{{roomNumFixed}}</h3>
           <div class="mb-1 text-body-secondary">Nov 12</div>
-          <p class="card-text mb-auto">This is example text that will contain a short description of the room such as capacity, technology in the room, and any unique room features.</p>
+          <p class="card-text mb-auto">Room capacity {{ room.Capacity }}.</p>
           <button type="button"  class="btn btn-primary btn-sm col-md-2"><RouterLink :to=route class="nav-link active">Book Room</RouterLink></button>
         </div>
         <div class="col-auto d-none d-lg-block">
