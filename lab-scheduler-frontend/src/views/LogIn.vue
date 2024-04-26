@@ -1,28 +1,27 @@
 <script setup>
 import axios from "axios";
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 let email = ""
 let password = ""
 
 const login = async () => {
-  
   axios.post('http://localhost:3000/login', {
     email: email,
-    password: password
+    pword: password
   })
   .then(function (response) {
     console.log(response);
+    localStorage.setItem('token', response.data.accessToken);
+    router.push('/success');
   })
   .catch(function (error) {
     alert(error.message);
   });
+
+
 }
-
-const signUp = async () => {
-  //Check if user input correct credentials
-
- }
-
 </script>
 
 <template>

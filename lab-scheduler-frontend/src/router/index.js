@@ -54,6 +54,9 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminDash,
+    meta: {
+      requiresAuth: true
+    }
   },
   { path: "/success", name: "success", component: Success },
   { path: "/about", name: "about", component: About },

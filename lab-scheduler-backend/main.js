@@ -21,7 +21,6 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-//TODO: use express routing instead of this ghetto shit
 //TODO: sign up endpoint, check if user exists, if not add to db and return 200 status
 
 // app.use(signUpRouter);
@@ -94,7 +93,7 @@ app.post('/login', async (req, res) => {
 
   } catch(err) {
     console.error(err);
-    return res.send(err)
+    return res.status(500).send();
   }
   // try {
   //   //TODO: return user object to compare passwords
