@@ -6,12 +6,15 @@ import fs from 'fs';
 import * as mysqlp from 'mysql2/promise';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import dotenv from 'dotenv';
 
 //database functions
 import addUser  from "./database/addUser.js";
 import getRooms from "./database/getRooms.js";
 import findUser from "./database/findUser.js";
+import returnUser from "./database/returnUser.js";
 
+dotenv.config()
 const app = express();
 const port = 3000;
 
@@ -28,11 +31,9 @@ app.post('/signup', async (req, res) => {
 
   try {
     let doesUserExist = await findUser(userObj.email);
-    console.log("does user exist? " + doesUserExist);
 
     if(doesUserExist) {
-      res.status(409).send("user already exists")
-      return;
+      return res.status(409).send("user already exists")
     }
 
     await addUser(userObj, mysql, fs);
@@ -70,24 +71,42 @@ app.get('/', async (req, res) => {
 // });
 
 app.post('/login', async (req, res) => {
-  let doesUserExist = await findUser(req.body.email);
-  res.send(doesUserExist ? "user found" : "user not found")
+  let email = req.body.email;
+  let userPword = req.body.pword;
 
-  // const user = users.find(user => user.username === req.body.username);
-  // if (user == null) {
-  //     return res.status(400).send('Cannot find user');
-  // }
+  try {
+    let doesUserExist = await findUser(email);
+  
+    if (!doesUserExist) {
+        return res.status(400).send('Cannot find user');
+    }
+
+    let userObj = await returnUser(email, mysqlp, fs);
+    let dbPword = userObj[0].Password;
+
+   
+    if (await bcrypt.compare(userPword, dbPword)) {
+        const accessToken = jwt.sign({ email: email}, process.env.JWT_SECRET);
+        return res.json({ accessToken });
+    } else {
+        return res.send('Not Allowed');
+    }
+
+  } catch(err) {
+    console.error(err);
+    return res.send(err)
+  }
   // try {
-  //     if (await bcrypt.compare(req.body.password, user.password)) {
-  //         const accessToken = jwt.sign({ username: user.username }, process.env.ACCESS_TOKEN_SECRET);
-  //         res.json({ accessToken });
-  //     } else {
-  //         res.send('Not Allowed');
-  //     }
+  //   //TODO: return user object to compare passwords
   // } catch {
   //     res.status(500).send();
   // }
 });
+
+app.get("/test", async (req, res) => {
+  console.log(process.env.JWT_SECRET);
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
