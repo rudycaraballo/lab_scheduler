@@ -79,12 +79,13 @@ app.post('/login', async (req, res) => {
 
     let userObj = await returnUser(email, mysqlp, fs);
     let dbPword = userObj[0].Password;
+    let fName = userObj[0].FirstName
 
    
     if (await bcrypt.compare(userPword, dbPword)) {
 
         let role = userObj[0].PrimaryEmail === process.env.ADMIN_EMAIL ? 'admin' : 'user';
-        const accessToken = jwt.sign({ username: email, role: role}, process.env.JWT_SECRET);
+        const accessToken = jwt.sign({ username: email, role: role, fName: fName}, process.env.JWT_SECRET);
         return res.json({ accessToken });
 
     } else {

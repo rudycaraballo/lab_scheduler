@@ -2,7 +2,6 @@
 <script setup>
 import router from "../router";
 
-let goToBooking = () => router.push('/rooms')
 </script>
 
 <template>

@@ -1,17 +1,5 @@
 <script setup>
-import bcrypt from "bcryptjs";
 
-const hash = async () => {
- try {
-   let pw = await bcrypt.hash("hanashininaranna", 10);  
-   console.log(pw);
-  
- } catch (error) {
-  console.log(error);
- }
-}
-
-hash();
 </script>
 
 <template>

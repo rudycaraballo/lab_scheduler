@@ -3,14 +3,6 @@ import Hero from "../components/Hero.vue"
 import RoomCard from "../components/HomeCard.vue"
 import FAQ from  "../components/FAQS.vue"
 
-let testEnv = () => console.log(import.meta.env.VITE_MSAL_AUTHORITY);
-
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
 </script> 
 
 <template>
