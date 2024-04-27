@@ -20,8 +20,7 @@ let findUser = async(email) => {
         'SELECT * FROM users WHERE PrimaryEmail = ?',
         [email]
     );
-    // console.log(results);
-    // console.log(results.length);
+
     return (results.length >= 1);
   } catch (err) {
     console.error("Error during the query.", err);

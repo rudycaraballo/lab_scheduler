@@ -1,8 +1,9 @@
 import { createWebHistory, createRouter } from "vue-router";
+import {jwtDecode} from 'jwt-decode';
 
+// @ts-ignore
 import Home from "../views/Home.vue";
 import LogIn from "../views/LogIn.vue";
-// @ts-ignore
 import Checkout from "../views/Checkout.vue";
 import Account from "../views/Account.vue";
 import Test from "../views/Test.vue";
@@ -12,9 +13,8 @@ import Success from "@/views/Success.vue";
 import RoomDes from "../views/RoomDescription.vue";
 import AdminDash from "../views/AdminDash.vue";
 import SignUp from "../views/SignUp.vue";
-// @ts-ignore
-import Dashboard from "../components/pages/Dashboard.vue";
-// import Rooms from "../views/Rooms.vue";
+
+
 
 const routes = [
   { path: "/", name: "home", component: Home },
@@ -37,28 +37,35 @@ const routes = [
     path: "/account",
     name: "account",
     component: Account,
-    // meta: {
-    //   requiresAuth: true
-    // }
+    meta: {
+      requiresAuth: true,
+      roles:['admin', 'user']
+    }
   },
   {
     path: "/checkout/:rmNumCheckout/:buildingNameCheckout",
     name: "checkout",
     component: Checkout,
     props: true,
-    // meta: {
-    //   requiresAuth: true
-    // }
-  },
-  {
-    path: "/admin",
-    name: "admin",
-    component: AdminDash,
     meta: {
       requiresAuth: true
     }
   },
-  { path: "/success", name: "success", component: Success },
+  {
+    //TODO: when logging in make sure its admin account
+    path: "/admin",
+    name: "admin",
+    component: AdminDash,
+    meta: {
+      requiresAuth: true,
+      roles: ['admin']
+    }
+  },
+  { 
+    path: "/success",
+     name: "success", 
+     component: Success 
+  },
   { path: "/about", name: "about", component: About },
   { path: "/rooms", name: "rooms", component: Rooms },
   {
@@ -69,9 +76,30 @@ const routes = [
   },
 ];
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+//Checking protected routes
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const token = localStorage.getItem('token');
+  let user = null;
+
+  if (token) {
+      user = jwtDecode(token); // Decode token to get user data
+  }
+
+  if (requiresAuth && !token) {
+      next('/login');
+  } else if (to.meta.roles && (!user || !to.meta.roles.includes(user.role))) {
+      next('/'); // Redirect if user does not have the required role
+  } else {
+      next();
+  }
+});
+
 
 export default router;

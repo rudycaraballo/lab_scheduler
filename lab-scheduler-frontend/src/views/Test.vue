@@ -1,3 +1,19 @@
+<script setup>
+import bcrypt from "bcryptjs";
+
+const hash = async () => {
+ try {
+   let pw = await bcrypt.hash("hanashininaranna", 10);  
+   console.log(pw);
+  
+ } catch (error) {
+  console.log(error);
+ }
+}
+
+hash();
+</script>
+
 <template>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

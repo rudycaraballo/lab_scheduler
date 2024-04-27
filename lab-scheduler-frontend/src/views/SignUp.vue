@@ -101,14 +101,12 @@ user.pword = await bcrypt.hash(user.pword, 10);
 
   })
   .catch(function (error) {
-   
     if(error.response.status == 409) {
       alert("There is an account that already exists for this email")
     } else {
       alert(error.message);
     }
   });
-
 }
 
 //TODO: do this after main functionality is done

@@ -64,14 +64,11 @@ app.get('/', async (req, res) => {
   res.send('Hello World!')
 })
 
-// app.post("/login", (req, res) => {
-//   console.log(req.body)
-//   res.send("welcome")
-// });
 
 app.post('/login', async (req, res) => {
   let email = req.body.email;
   let userPword = req.body.pword;
+  let role = "user"
 
   try {
     let doesUserExist = await findUser(email);
@@ -85,8 +82,11 @@ app.post('/login', async (req, res) => {
 
    
     if (await bcrypt.compare(userPword, dbPword)) {
-        const accessToken = jwt.sign({ email: email}, process.env.JWT_SECRET);
+
+        let role = userObj[0].PrimaryEmail === process.env.ADMIN_EMAIL ? 'admin' : 'user';
+        const accessToken = jwt.sign({ username: email, role: role}, process.env.JWT_SECRET);
         return res.json({ accessToken });
+
     } else {
         return res.send('Not Allowed');
     }
