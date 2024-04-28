@@ -16,6 +16,7 @@ import returnUser from "./database/returnUser.js";
 import getFilteredRooms from "./database/getFilteredRooms.js";
 import getRoomInfo from "./database/getRoomInfo.js";
 import bookARoom from "./database/bookARoom.js";
+import getUserAccount from "./database/getUserAccount.js";
 
 dotenv.config()
 const app = express();
@@ -63,6 +64,19 @@ app.post('/create-booking', async (req, res) => {
 
 })
 
+
+app.get('/account-info', async (req, res) => {
+  let userId = req.query.userId;
+  try {
+
+    let results = await getUserAccount(mysqlp, fs, userId);
+    res.status(201).send(results)
+    
+  } catch (error) {
+    res.status(500).send(error)
+    console.log(error);
+  }
+})
 
 
 

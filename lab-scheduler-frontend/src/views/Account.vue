@@ -2,7 +2,7 @@
 import AccountBookingCard from "@/components/AccountBookingCard.vue"
 
 import {jwtDecode} from 'jwt-decode';
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, onBeforeMount } from 'vue';
 import axios from "axios";
 
 
@@ -15,6 +15,7 @@ console.log(user.username);
 console.log(user.fName);
 
 //TODO: use username to check if they have any bookings and reactivly alter this page from it
+
 </script>
 
 <template>
