@@ -1,6 +1,6 @@
 <script setup>
-let date;
-let time;
+let startTime;
+let endTime;
 
 const filterTime = () => {
   console.log(date);
@@ -15,11 +15,20 @@ const filterTime = () => {
 
             <div class="col-lg-2">
 
-              <label for="time" class="form-label">Time</label>
-              <input v-model="date" type="time" class="form-control" id="time" placeholder="" value="" required>
+              <label for="startTime" class="form-label">Start Time</label>
+              <input v-model="date" type="time" class="form-control" id="time" placeholder="" value="" step="900" required>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
+
+            </div>
+            <div class="col-lg-2">
+
+            <label for="endTime" class="form-label">End Time</label>
+            <input v-model="date" type="time" class="form-control" id="time" placeholder="" value="" required>
+            <div class="invalid-feedback">
+              Valid first name is required.
+            </div>
 
             </div>
             <div class="col-lg-2">

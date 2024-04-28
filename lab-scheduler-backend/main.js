@@ -13,6 +13,7 @@ import addUser  from "./database/addUser.js";
 import getRooms from "./database/getRooms.js";
 import findUser from "./database/findUser.js";
 import returnUser from "./database/returnUser.js";
+import getFilteredRooms from "./database/getFilteredRooms.js";
 
 dotenv.config()
 const app = express();
@@ -50,8 +51,22 @@ app.get('/available-rooms', async (req, res) => {
   } catch(err) {
     console.log(err);
   }
-
 })
+
+app.get('/filtered-bookings', async (req, res) => {
+  const bookingStart = req.query.bookingStart;
+  const bookingEnd = req.query.bookingEnd; 
+
+  console.log(bookingStart, bookingEnd);
+  try {
+    let results = await getFilteredRooms(mysqlp, fs, bookingStart, bookingEnd);
+    res.send(results)
+  } catch(err) {
+    console.log(err);
+  }
+})
+
+
 
 
 app.get('/', async (req, res) => {
@@ -68,7 +83,6 @@ app.get('/', async (req, res) => {
 app.post('/login', async (req, res) => {
   let email = req.body.email;
   let userPword = req.body.pword;
-  let role = "user"
 
   try {
     let doesUserExist = await findUser(email);
@@ -80,12 +94,13 @@ app.post('/login', async (req, res) => {
     let userObj = await returnUser(email, mysqlp, fs);
     let dbPword = userObj[0].Password;
     let fName = userObj[0].FirstName
+    let userId = userObj[0].UserID;
 
    
     if (await bcrypt.compare(userPword, dbPword)) {
 
         let role = userObj[0].PrimaryEmail === process.env.ADMIN_EMAIL ? 'admin' : 'user';
-        const accessToken = jwt.sign({ username: email, role: role, fName: fName}, process.env.JWT_SECRET);
+        const accessToken = jwt.sign({ username: email, role: role, fName: fName, userId:userId}, process.env.JWT_SECRET);
         return res.json({ accessToken });
 
     } else {
