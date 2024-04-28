@@ -4,7 +4,7 @@ import Pagination from "@/components/Pagination.vue";
 import DescriptionCard from "@/components/DescriptionCard.vue";
 import BookingSearch from "@/components/BookingSearch.vue";
 import axios from "axios";
-import { ref, onBeforeMount,  getCurrentInstance  } from "vue";
+import { ref, onBeforeMount} from "vue";
 
 let startTime;
 let endTime;
@@ -23,7 +23,7 @@ function isValidTimes(time1, time2) {
 }
 
 const filterTime = async () => {
-  console.log(isValidTimes(startTime, endTime));
+  //TODO: check that start, end and date are all filled
 
   if (!isValidTimes(startTime, endTime)) {
     alert("Invalid start and end times");
@@ -32,7 +32,8 @@ const filterTime = async () => {
 
   let bookingFilter = {
     bookingStart: `${startTime}:00`,
-    bookingEnd: `${endTime}:00`
+    bookingEnd: `${endTime}:00`,
+    dayBooked: date
   }
   //19:28
   //19:28
@@ -66,11 +67,7 @@ const filterTime = async () => {
       rooms.value.forEach(item => {
           item.id = Math.random(); // Add a temporary unique key
         });
-      
-      //TODO: force re rendering of the child components
-
-      
-      
+     
     }
   } catch (err) {
     console.log(err);

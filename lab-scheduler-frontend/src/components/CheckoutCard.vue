@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue"
-const props = defineProps(['rmNumCheckout', "buildingNameCheckout"])
+const props = defineProps(['rmNumCheckout', "buildingNameCheckout", "capacity", "startTime", "endTime", "date"])
 console.log(props.rmNumCheckout);
 console.log(props.buildingNameCheckout);
 
@@ -21,8 +21,10 @@ const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
            </div>
          <strong class="d-inline-block mb-2 text-primary-emphasis">{{ buildingNameCheckout}}</strong>
          <h3 class="mb-0">Room #{{ rmNumCheckout }}</h3>
-         <div class="mb-1 text-body-secondary">Nov 12</div>
-         <p class="card-text mb-auto">This is example text that will contain a short description of the room such aas capacity, technology in the room, and any unique room features.</p>
+         <div class="mb-1 text-body-secondary">{{date}}</div>
+         <p class="card-text mb-auto">Capacity: {{ capacity }}.</p>
+         <p class="card-text mb-auto">Start of the Event: {{ startTime }}.</p>
+         <p class="card-text mb-auto">End of The Event: {{ endTime }}.</p>
        </div>
      </div>
    </div>
@@ -31,7 +33,8 @@ const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 
 <style scoped>
 .rm-img {
-  max-width: 300px;
-  padding: .5em;
+  max-width: 250px;
+
+  padding: 1em;
 }
 </style>

@@ -43,7 +43,7 @@ const routes = [
     }
   },
   {
-    path: "/checkout/:rmNumCheckout/:buildingNameCheckout",
+    path: "/checkout/:rmNumCheckout/:buildingNameCheckout/:capacity/:date/:startTime/:endTime",
     name: "checkout",
     component: Checkout,
     props: true,

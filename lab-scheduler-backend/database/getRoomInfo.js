@@ -1,6 +1,5 @@
-let getFilteredRooms = async(mysqlp, fs, bookingStart, bookingEnd, dayBooked) => {
-
-
+let getRoomInfo = async(mysqlp, fs, roomNumber) => {
+    
     const pool = mysqlp.createPool({
       host: "unigathermysql.mysql.database.azure.com",
       user: "bigdorya",
@@ -14,16 +13,13 @@ let getFilteredRooms = async(mysqlp, fs, bookingStart, bookingEnd, dayBooked) =>
     });
   
     try {
-        //Search booking orders
+        //return room info and any bookings it has
       const [results] = await pool.query(
-        `SELECT * FROM bookings
-        WHERE DayBooked = ? AND 
-        ((StartTimeBooked > ? AND StartTimeBooked < ?) 
-        OR (StartTimeBooked <= ? AND EndTimeBooked >= ?)
-        OR (EndTimeBooked > ? AND EndTimeBooked < ?));`,
-        [dayBooked, bookingStart, bookingEnd, bookingStart, bookingEnd, bookingStart, bookingEnd]
+        `SELECT * FROM roominfo
+        WHERE RoomNum = ?;`,
+        [roomNumber]
       );
-      console.log("Added room to bookings");
+      console.log("Room info requested");
       return results;
     } catch (err) {
       console.error("Error during the query.", err);
@@ -33,5 +29,4 @@ let getFilteredRooms = async(mysqlp, fs, bookingStart, bookingEnd, dayBooked) =>
   
   }
   
-  export default getFilteredRooms;
-  
+  export default getRoomInfo;

@@ -7,7 +7,6 @@ const props = defineProps(['rmNum', "buildingName"])
 </script>
 
 <template>
-        
         <div class="container">
         <BookingCard :rmNum="rmNum" :buildingName="buildingName"/>
     </div>

@@ -50,7 +50,6 @@ import axios from "axios";
 import { useRouter } from 'vue-router';
 import bcrypt from "bcryptjs";
 
-
 const router = useRouter();
 
 let user = {
@@ -62,7 +61,6 @@ let user = {
     altEmail: "",
     confirmPword: "",
 }
-
 
 const signUp = async () => {
     //check for any empty missing values
@@ -94,7 +92,6 @@ const signUp = async () => {
 user.pword = await bcrypt.hash(user.pword, 10);  
   await axios.post('http://localhost:3000/signup', user)
   .then(function (response) {
-    //TODO check that response was successful
     if(response.status == 201) {
       router.push('/success')
     }  

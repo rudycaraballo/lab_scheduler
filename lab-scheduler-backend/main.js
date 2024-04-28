@@ -8,12 +8,14 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv';
 
-//database functions
+//Database functions
 import addUser  from "./database/addUser.js";
 import getRooms from "./database/getRooms.js";
 import findUser from "./database/findUser.js";
 import returnUser from "./database/returnUser.js";
 import getFilteredRooms from "./database/getFilteredRooms.js";
+import getRoomInfo from "./database/getRoomInfo.js";
+import bookARoom from "./database/bookARoom.js";
 
 dotenv.config()
 const app = express();
@@ -25,7 +27,6 @@ app.use(cors());
 //TODO: sign up endpoint, check if user exists, if not add to db and return 200 status
 
 // app.use(signUpRouter);
-
 app.post('/signup', async (req, res) => {
   let userObj = req.body;
 
@@ -44,6 +45,28 @@ app.post('/signup', async (req, res) => {
   }
 })
 
+
+
+
+
+app.post('/create-booking', async (req, res) => {
+  let bookingForm = req.body
+
+  try {
+    let booked = await bookARoom(mysqlp, fs, bookingForm);
+    res.status(201).send('Booking Order Created')
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send();
+  }
+
+})
+
+
+
+
+
 app.get('/available-rooms', async (req, res) => {
   try {
     let results = await getRooms(mysqlp, fs);
@@ -53,18 +76,40 @@ app.get('/available-rooms', async (req, res) => {
   }
 })
 
-app.get('/filtered-bookings', async (req, res) => {
-  const bookingStart = req.query.bookingStart;
-  const bookingEnd = req.query.bookingEnd; 
 
-  console.log(bookingStart, bookingEnd);
+
+
+app.get('/room-information', async (req, res) => {
+  let roomNumber = req.query.roomNumber;
+
   try {
-    let results = await getFilteredRooms(mysqlp, fs, bookingStart, bookingEnd);
+    let results = await getRoomInfo(mysqlp, fs, roomNumber);
     res.send(results)
   } catch(err) {
     console.log(err);
   }
 })
+
+
+
+
+
+app.get('/filtered-bookings', async (req, res) => {
+  const bookingStart = req.query.bookingStart;
+  const bookingEnd = req.query.bookingEnd; 
+  const dayBooked = req.query.dayBooked;
+
+  console.log(dayBooked);
+  try {
+    let results = await getFilteredRooms(mysqlp, fs, bookingStart, bookingEnd, dayBooked);
+    res.send(results)
+  } catch(err) {
+    console.log(err);
+  }
+})
+
+
+
 
 
 
