@@ -10,6 +10,12 @@ let startTime;
 let endTime;
 let date;
 
+let rooms = ref([]);
+let pageContent = ref([]);
+let pages = ref([]);
+let pageNum = ref(null);
+
+let currentPage = ref(0)
 let currentDay = ref(null)
 
 let today = new Date();
@@ -49,8 +55,6 @@ const filterTime = async () => {
   //19:28
   //2024-04-02
 
-  console.log(bookingFilter);
-
  
   try {
   
@@ -65,12 +69,10 @@ const filterTime = async () => {
 
       console.log(typeof filterResponse.data);
       for(var room in filterResponse.data) {
-
         let roomID = filterResponse.data[room].RoomID;
         excludedRooms.push(roomID)
       }
 
-      console.log(allRooms);
 
       let filteredRooms = allRooms.filter(room => !excludedRooms.includes(room.RoomID));
       rooms.value = [...filteredRooms]
@@ -86,15 +88,41 @@ const filterTime = async () => {
   }
 }
 
-const changePage = () => {
-  console.log(rooms.value.length);
+const changePage = (page) => {
+  currentPage.value = page
+
+    //Remounts child components
+    rooms.value.forEach(item => {
+          item.id = Math.random(); // Add a temporary unique key
+        });
+
 }
-let rooms = ref([]);
+
+const generatePages = () => {
+  let filler = []
+  for(const [i, value] of rooms.value.entries()) {
+  console.log(value)
+  filler.push(value)
+  if( (i+1) % 10 === 0) {
+    pageContent.value.push(filler);
+    pages.value.push(pageContent.value.length)
+    filler = []
+  }
+}
+if(filler.length > 0 ) {
+  pageContent.value.push(filler)
+  pages.value.push(pageContent.value.length)
+}
+  console.log(pages);
+  console.log(pageContent);
+}
+
 //Loading all rooms before mounting
 onBeforeMount(async () => {
   try {
     const response = await axios.get('http://localhost:3000/available-rooms');
     rooms.value = response.data;
+    generatePages()
     
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -350,19 +378,22 @@ onBeforeMount(async () => {
 </div>
 
   <div class="container">
+<!-- 
+    <DescriptionCard v-for="room in rooms" :key="room.id" :room="room"/> -->
+    <DescriptionCard v-for="room in pageContent[currentPage]" :key="room.id" :room="room"/>
 
-    <DescriptionCard v-for="room in rooms" :key="room.id" :room="room"/>
-
-          <nav class="">
+        <nav class="">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a @click="changePage" class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <div v-for="page in pages" :key="page"> <!-- Loop 3 times -->
+            <li :key="page" class="page-item"><a @click="changePage(page)" class="page-link" href="#">{{ page}}</a></li>
+          </div>
+          <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li> -->
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
@@ -370,6 +401,7 @@ onBeforeMount(async () => {
           </li>
         </ul>
       </nav>
+
   </div>
 </template>
 

@@ -18,7 +18,7 @@ import router from "../router";
   <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
       <div class="col-10 col-sm-8 col-lg-6">
-        <img src="/src/assets/images/template-app.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+        <img src="/src/assets/images/meeting.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="900" height="700" loading="lazy">
       </div>
       <div class="col-lg-6">
         <h1 class="display-5 fw-bold lh-1 mb-3">Unigather</h1>
@@ -33,6 +33,13 @@ import router from "../router";
 </template>
 
 <style scoped>
+.container {
+  padding-top: 0px !important;
+}
+.d-block {
+  border-radius: 50px !important;
+  height: 400px !important;
+}
 .btn {
   border-radius: 0 !important;
 }
