@@ -10,8 +10,7 @@ let user = jwtDecode(token);
 let userBookings = ref([]);
 
 let fName = user.fName;
-console.log(user.username);
-console.log(user.fName);
+
 
 //TODO: use username to check if they have any bookings and reactivly alter this page from it
 onBeforeMount(async () => {
@@ -19,6 +18,7 @@ onBeforeMount(async () => {
     const response = await axios.get('http://localhost:3000/account-info', {params:{userId: user.userId}});
     userBookings.value = response.data;
     console.log(userBookings.value);
+
   } catch (error) {
     console.error('Error fetching users:', error);
   }
@@ -40,6 +40,8 @@ onBeforeMount(async () => {
             :endTimeBook="booking.EndTimeBooked"
             :startTimeBooked="booking.StartTimeBooked"
             :bookingId = "booking.BookingID"
+            :roomNum = "booking.RoomNum"
+            :capacity = "booking.Capacity"
             />
             
             

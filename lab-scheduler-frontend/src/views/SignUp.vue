@@ -93,7 +93,7 @@ user.pword = await bcrypt.hash(user.pword, 10);
   await axios.post('http://localhost:3000/signup', user)
   .then(function (response) {
     if(response.status == 201) {
-      router.push('/success')
+      router.push('/account')
     }  
 
   })

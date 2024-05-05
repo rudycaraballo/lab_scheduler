@@ -1,11 +1,11 @@
--AI generate a logo
+
 -begin designing all pages
--connect microsoft authenticator
--prevent user from accessing account without logging in (lets say they closed the browser) probably JWT(json web tokens or something)
+
+
 -overall website navigation
 -uploading pictures of each available room
 -master log in
--jwt authentication
+
 -local storage authentication with vue router
 
 https://themes.getbootstrap.com/product/booking-multipurpose-booking-and-directory-theme/

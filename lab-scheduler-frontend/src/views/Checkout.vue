@@ -76,7 +76,7 @@ const checkout = async () => {
       try {
         const response = await axios.post('http://localhost:3000/create-booking', checkoutForm)
         if(response.status == 201) {
-          router.push('/success')
+          router.push('/account')
         }  
       } catch (error) {
         console.log(error);

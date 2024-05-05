@@ -1,8 +1,11 @@
 <script setup>
 import Modal from "./Modal.vue"
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 
-const props = defineProps(['dayBooked', "endTimeBook","startTimeBooked"])
+const props = defineProps(['dayBooked', "endTimeBook","startTimeBooked", "bookingId", "roomNum", "capacity" ])
+
+let roomNumFixed = props.roomNum < 1000 ? ("0" + props.roomNum) : props.roomNum;
+const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 
 const editBooking = async() => {
 
@@ -16,7 +19,7 @@ const deleteBooking = async() => {
 
 <template>
 
-    <div class="row mb-2">
+    <div class="row mb-2 row-wrapper">
    <div class="col-md-12">
      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
        <div class="col p-4 d-flex flex-column position-static">
@@ -29,12 +32,32 @@ const deleteBooking = async() => {
          <!-- TODO trigger modal if they want to delete the booking and then allow a delete once they confirm -->
          
          <Modal />
-       </div>/
-       <div class="col-auto d-none d-lg-block">
-         <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+       </div>
+       <div class="col-auto d-none d-lg-block rm-wrapper">
+        <img class="rm-img" :src=imageUrl></img>
        </div>
      </div>
    </div>
  </div>
 
 </template>
+
+<style scoped>
+.rm-wrapper {
+  height: 300px;
+}
+
+.rm-img {
+  width: 100%;
+  height: 100%;
+}
+.row-wrapper {
+  transition: transform 0.3s ease !important; /* Smooth transition for transform property */
+}
+.row-wrapper:hover {
+  opacity: 2 !important;
+  transform: scale(1.075);
+
+}
+
+</style>

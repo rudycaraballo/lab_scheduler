@@ -12,11 +12,11 @@ const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 </script>
 
 <template>
-  <div class="row mb-2">
+  <div class="row mb-2 align-items-center">
    <div class="col-md-12">
      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-       <div class="col p-4 d-flex flex-column position-static">
-           <div class="col-lg-12 d-none d-lg-block">
+       <div class="col p-4 d-flex flex-column position-static =">
+           <div class="col-lg-12 d-none d-lg-block img-wrapper">
             <img class="rm-img" :src=imageUrl></img>
            </div>
          <strong class="d-inline-block mb-2 text-primary-emphasis">{{ buildingNameCheckout}}</strong>
@@ -33,8 +33,7 @@ const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 
 <style scoped>
 .rm-img {
-  max-width: 250px;
+  max-width: 365px;
 
-  padding: 1em;
 }
 </style>

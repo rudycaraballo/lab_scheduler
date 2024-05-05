@@ -16,9 +16,8 @@ const route = `room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary-emphasis">{{ room.BuildingName }}</strong>
           <h3 class="mb-0">Room #{{roomNumFixed}}</h3>
-          <div class="mb-1 text-body-secondary">Nov 12</div>
           <p class="card-text mb-auto">Room capacity {{ room.Capacity }}.</p>
-          <button type="button"  class="btn btn-primary btn-sm col-md-2"><RouterLink :to=route class="nav-link active">Book Room</RouterLink></button>
+          <button type="button"  class="btn btn-primary btn-sm col-md-2"><RouterLink :to=route class="nav-link active ">Book Room</RouterLink></button>
         </div>
         <div class="col-auto d-none d-lg-block">
             <img class="rm-img" :src=imageUrl></img>
@@ -31,6 +30,6 @@ const route = `room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
 <style scoped>
 .rm-img {
   max-width: 200px;
-  padding: 1.5em;
+  
 }
 </style>

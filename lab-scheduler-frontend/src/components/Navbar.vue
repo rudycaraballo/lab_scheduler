@@ -1,11 +1,3 @@
-<!-- 
-<script setup>
-import router from "../router";
-
-let goHome = () => router.push("/")
-</script> -->
-//DONT KNOW IF THE ABOVE WILL BE NEEDED, CHECK BACK WHEN AUTHORIZATION IS IMPLEMENTED
-
 <template>
   <div class="container">
     <nav class="navbar navbar-expand-lg fixed-top">
@@ -25,7 +17,7 @@ let goHome = () => router.push("/")
           <RouterLink to="/about" class="nav-link nav-anchors active">About</RouterLink>
           <RouterLink to="/account" class="nav-link nav-anchors account">Account</RouterLink>
           <RouterLink to="/sign-up" class="nav-link nav-anchors sign-up">Sign Up</RouterLink>
-          <button id="lg-i-btn" class="btn btn-primary btn-sm justify-content-center" type="submit"><RouterLink to="/login" class="nav-link active">Sign In</RouterLink></button>
+          <RouterLink to="/login" class="btn btn-primary btn-sm ">Log In</RouterLink>
         </div>
       </div>
     </nav>
@@ -38,19 +30,10 @@ let goHome = () => router.push("/")
 #logo {
   max-width: 120px;
 }
-.nav-anchors {
+
+.nav-link, .btn-sm {
   margin-left: 10px;
 }
-#lg-i-btn {
-
-  margin-left: 10px;
-}
-
-.sign-up {
-  margin-left: 10px;
-}
-
-
 
 
 </style>

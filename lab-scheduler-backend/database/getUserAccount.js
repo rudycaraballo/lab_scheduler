@@ -14,7 +14,9 @@ let getUserAccount = async (mysqlp, fs, userId) => {
     
       try {
         const [results] = await pool.query(
-            'SELECT * FROM bookings WHERE UserID = ?;',
+            `SELECT * FROM bookings
+            LEFT JOIN roominfo ON bookings.roomID = roominfo.RoomID
+            WHERE bookings.UserID = ?`,
             [userId]
         );
         return results;

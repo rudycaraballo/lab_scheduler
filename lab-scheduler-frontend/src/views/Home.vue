@@ -58,20 +58,8 @@ onBeforeMount(async () => {
   height: 80vh !important;
 }
 
-.hero-wrapper {
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/src/assets/images/mainCampus.JPG"); */
-  /* background-image: url("/src/assets/images/mainCampus.JPG"); */
-  /* background-repeat: no-repeat;
-  background-size: 2000px;
-  background-position: 100% 38%;  */
-
-
-  /* margin-top: 70px; */
-}
-
 .campus-img {
   max-width: 630px;
-
   border-radius: 50px !important;
 }
 

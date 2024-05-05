@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { useRouter } from 'vue-router';
+import { jwtDecode } from "jwt-decode";
 
 const router = useRouter();
 let email = ""
@@ -14,7 +15,12 @@ const login = async () => {
   .then(function (response) {
     console.log(response);
     localStorage.setItem('token', response.data.accessToken);
-    router.push('/success');
+    let user = jwtDecode(response.data.accessToken);
+    if(user.role === "admin"){
+      router.push('/admin');
+    } else {
+      router.push("/account");
+    }
   })
   .catch(function (error) {
     alert(error.message);
@@ -43,7 +49,7 @@ const login = async () => {
     </div>
     <p class="mt-5 mb-3 text-body-secondary">Don't have an account? <RouterLink to="/sign-up" >Sign Up</RouterLink></p>
     <div class="row">
-      <button @click="login" class="btn btn-primary w-100 py-2 col-lg-6" >Log In</button>
+      <button @click="login" class="btn btn-primary w-100 py-2 col-lg-6">Log In</button>
     </div>
     </form>
 </main>

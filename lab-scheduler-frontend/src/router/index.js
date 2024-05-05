@@ -52,7 +52,6 @@ const routes = [
     }
   },
   {
-    //TODO: when logging in make sure its admin account
     path: "/admin",
     name: "admin",
     component: AdminDash,

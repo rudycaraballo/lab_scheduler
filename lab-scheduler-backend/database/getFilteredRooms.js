@@ -23,7 +23,7 @@ let getFilteredRooms = async(mysqlp, fs, bookingStart, bookingEnd, dayBooked) =>
         OR (EndTimeBooked > ? AND EndTimeBooked < ?));`,
         [dayBooked, bookingStart, bookingEnd, bookingStart, bookingEnd, bookingStart, bookingEnd]
       );
-      console.log("Added room to bookings");
+      console.log("Returned filtered rooms");
       return results;
     } catch (err) {
       console.error("Error during the query.", err);
