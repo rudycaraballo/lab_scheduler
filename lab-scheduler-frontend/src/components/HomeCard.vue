@@ -1,12 +1,24 @@
+<script setup>
+import { defineProps, ref } from 'vue';
+
+const props = defineProps(["room"])
+
+let roomNumFixed = props.room.RoomNum < 1000 ? ("0" + props.room.RoomNum) : props.room.RoomNum;
+const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
+
+</script>
+
 <template>
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="text-center rm-wrapper">
+              <img class="rm-img" :src=imageUrl></img>
+            </div>
             <div class="card-body">
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary"><RouterLink to="/room-desc">view</RouterLink></button>
+                  <RouterLink to="/room-desc" class="btn btn-sm">View Room</RouterLink>
                 </div>
                 <small class="text-body-secondary">9 mins</small>
               </div>
@@ -14,3 +26,24 @@
           </div>
         </div>
 </template>
+
+<style scoped>
+.rm-wrapper {
+  height: 300px;
+}
+.rm-img {
+  width: 100%;
+  height: 100%;
+
+}
+
+.card {
+      transition: transform 0.3s ease; /* Smooth transition for transform property */
+      max-width: 350px;
+    }
+
+.card:hover {
+    transform: scale(1.050);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px
+}
+</style>

@@ -1,10 +1,10 @@
 <template>
-        <div class="faq_area section_padding_130 bg-body-tertiary" id="faq">
+        <div class="faq_area section_padding_130 " id="faq">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-8 col-lg-6">
                 <!-- Section Heading-->
-                <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;" data-aos="fade-left" data-aos-duration="3000">
                     <h3><span>Frequently </span> Asked Questions</h3>
 
                     <div class="line"></div>
@@ -13,7 +13,7 @@
         </div>
         <div class="row justify-content-center">
             <!-- FAQ Area-->
-            <div class="col-12 col-sm-10 col-lg-8">
+            <div class="col-12 col-sm-10 col-lg-8" data-aos="fade-left" data-aos-duration="3000">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
   <div class="accordion-item">
     <h2 class="accordion-header">

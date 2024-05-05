@@ -10,7 +10,7 @@ const route = `room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
 
 
 <template>
-     <div class="row mb-2">
+     <div class="row mb-2" data-aos="fade-right" data-aos-duration="2000">
     <div class="col-md-12">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">

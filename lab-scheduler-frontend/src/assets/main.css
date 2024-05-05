@@ -9,4 +9,20 @@
   } */
 }
 
+* {
+  border-radius: 0 !important;
+}
+
+.btn {
+  background-color: #1B93D0 !important;
+  border-color: #1B93D0 !important;
+  color: white !important;
+  transition: transform 0.3s ease !important; /* Smooth transition for transform property */
+}
+
+.btn:hover {
+  opacity: 2 !important;
+  transform: scale(1.075);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px;
+}
 
