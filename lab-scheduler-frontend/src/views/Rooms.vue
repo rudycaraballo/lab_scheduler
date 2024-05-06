@@ -13,7 +13,7 @@ let date;
 let rooms = ref([]);
 let pageContent = ref([]);
 let pages = ref([]);
-let pageNum = ref(null);
+
 
 let currentPage = ref(0)
 let currentDay = ref(null)
@@ -40,12 +40,11 @@ function isValidTimes(time1, time2) {
 
 const filterTime = async () => {
   //TODO: check that start, end and date are all filled
-
   if (!isValidTimes(startTime, endTime)) {
     alert("Invalid start and end times");
     return;
   }
-
+  
   let bookingFilter = {
     bookingStart: `${startTime}:00`,
     bookingEnd: `${endTime}:00`,
@@ -54,34 +53,34 @@ const filterTime = async () => {
   //19:28
   //19:28
   //2024-04-02
-
- 
-  try {
   
+  
+  try {
+    
     //TODO: make this one axios call and just have it return a joined table for all rooms that don't include anything in the booking table + rooms table 
     const filterResponse = await axios.get('http://localhost:3000/filtered-bookings', {params: bookingFilter})
- 
+    console.log("im here");
+    console.log(filterResponse.data.length);
+    //any rooms are filtered?
     if(filterResponse.data.length >= 1) {
 
       const allRoomsResponse = await axios.get('http://localhost:3000/available-rooms');
       let allRooms = allRoomsResponse.data
       let excludedRooms = [];
 
-      console.log(typeof filterResponse.data);
       for(var room in filterResponse.data) {
         let roomID = filterResponse.data[room].RoomID;
         excludedRooms.push(roomID)
       }
 
-
       let filteredRooms = allRooms.filter(room => !excludedRooms.includes(room.RoomID));
       rooms.value = [...filteredRooms]
-
-      //Remounts child components
-      rooms.value.forEach(item => {
-          item.id = Math.random(); // Add a temporary unique key
-        });
-     
+       generatePages()  
+       //generate all rooms if not  
+    } else {
+      const response = await axios.get('http://localhost:3000/available-rooms');
+      rooms.value = response.data;
+      generatePages()
     }
   } catch (err) {
     console.log(err);
@@ -89,7 +88,7 @@ const filterTime = async () => {
 }
 
 const changePage = (page) => {
-  currentPage.value = page
+  currentPage.value = (page - 1)
 
     //Remounts child components
     rooms.value.forEach(item => {
@@ -98,23 +97,37 @@ const changePage = (page) => {
 
 }
 
+const reloadFilteredPages = () => {
+
+}
+
 const generatePages = () => {
+  console.log("im getting called");
   let filler = []
+  pageContent.value = []
+  pages.value =[]
+
   for(const [i, value] of rooms.value.entries()) {
-  console.log(value)
+    console.log(value.RoomNum);
   filler.push(value)
+
   if( (i+1) % 10 === 0) {
     pageContent.value.push(filler);
     pages.value.push(pageContent.value.length)
     filler = []
   }
 }
+console.log(pageContent.value);
+
 if(filler.length > 0 ) {
   pageContent.value.push(filler)
   pages.value.push(pageContent.value.length)
 }
-  console.log(pages);
-  console.log(pageContent);
+  console.log(pageContent.value);
+  currentPage.value = 0
+  rooms.value.forEach(item => {
+        item.id = Math.random(); // Add a temporary unique key
+      });
 }
 
 //Loading all rooms before mounting
@@ -128,8 +141,6 @@ onBeforeMount(async () => {
     console.error('Error fetching users:', error);
   }
 });
-
-
 </script>
 
 <template>

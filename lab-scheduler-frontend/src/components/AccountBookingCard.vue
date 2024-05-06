@@ -4,6 +4,7 @@ import { defineProps, ref } from "vue";
 
 const props = defineProps(['dayBooked', "endTimeBook","startTimeBooked", "bookingId", "roomNum", "capacity" ])
 
+
 let roomNumFixed = props.roomNum < 1000 ? ("0" + props.roomNum) : props.roomNum;
 const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 
@@ -24,7 +25,7 @@ const deleteBooking = async() => {
      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
        <div class="col p-4 d-flex flex-column position-static">
          <strong class="d-inline-block mb-2 text-primary-emphasis">NAB</strong>
-         <h3 class="mb-0">Room #FFF</h3>
+         <h3 class="mb-0">Room {{ roomNum }}</h3>
          <div class="mb-1 text-body-secondary">{{dayBooked}}</div>
          <p class="card-text mb-auto">Start time: {{ startTimeBooked }}</p>
          <p class="card-text mb-auto">End time: {{ endTimeBook }}</p>
