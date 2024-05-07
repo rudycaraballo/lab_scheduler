@@ -1,8 +1,5 @@
 <script setup>
-import RoomCard from "../components/HomeCard.vue";
-import Pagination from "@/components/Pagination.vue";
 import DescriptionCard from "@/components/DescriptionCard.vue";
-import BookingSearch from "@/components/BookingSearch.vue";
 import axios from "axios";
 import { ref, onBeforeMount} from "vue";
 
@@ -97,9 +94,6 @@ const changePage = (page) => {
 
 }
 
-const reloadFilteredPages = () => {
-
-}
 
 const generatePages = () => {
   console.log("im getting called");

@@ -1,8 +1,6 @@
 <script setup>
 import {ref} from "vue"
 const props = defineProps(['rmNumCheckout', "buildingNameCheckout", "capacity", "startTime", "endTime", "date"])
-console.log(props.rmNumCheckout);
-console.log(props.buildingNameCheckout);
 
 let roomNumFixed = props.rmNumCheckout < 1000 ? ("0" + props.rmNumCheckout) : props.rmNumCheckout;
 const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
