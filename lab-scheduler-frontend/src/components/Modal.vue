@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const props = defineProps(["bookingId"])
+
 
 let test = () => {
   console.log("Your modal confirm has been pressed");

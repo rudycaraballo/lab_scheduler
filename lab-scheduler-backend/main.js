@@ -18,6 +18,8 @@ import getRoomInfo from "./database/getRoomInfo.js";
 import bookARoom from "./database/bookARoom.js";
 import getUserAccount from "./database/getUserAccount.js";
 import getMonthlyReport from "./database/getMonthlyReport.js";
+import deleteARoom from "./database/deleteBooking.js";
+import deleteABooking from "./database/deleteBooking.js";
 
 dotenv.config()
 const app = express();
@@ -172,7 +174,6 @@ app.get('/filtered-bookings', async (req, res) => {
 
 
 
-
 app.get('/', async (req, res) => {
   try {
     await addUser();
@@ -185,10 +186,17 @@ app.get('/', async (req, res) => {
 
 
 
-app.get("/test", async (req, res) => {
-  console.log(process.env.JWT_SECRET);
+app.post("/delete-booking", async(req, res) => {
+  let bookingId = req.body.bookingId
+  console.log(bookingId);
+  try {
+    let result = deleteABooking(mysqlp, fs, bookingId)
+    res.status(201).send('Successfully Deleted This Booking')
+  } catch (error) {
+    res.status(500).send(error)
+    console.log(error);
+  }
 })
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

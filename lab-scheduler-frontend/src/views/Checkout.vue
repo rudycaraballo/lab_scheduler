@@ -12,7 +12,7 @@ const buildingId = localStorage.getItem('buildingId');
 
 const router = useRouter();
 
-let user = jwtDecode(token); // Decode token to get user data
+let user = jwtDecode(token); 
 const props = defineProps([
   'rmNumCheckout', 
   "buildingNameCheckout",
@@ -25,7 +25,7 @@ const props = defineProps([
 let isChecked = ref(false);
 
 
-// State to track whether the checkbox is checked
+
 let checkoutForm = {
   userID: user.userId,
   owEmail: user.username,
@@ -74,20 +74,20 @@ const checkout = async () => {
       }
 
       //TODO: send form to the db
-      // try {
-      //   const response = await axios.post('http://localhost:3000/create-booking', checkoutForm)
-      //   if(response.status == 201) {
-      //     router.push('/account')
-      //   }  
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      try {
+        const response = await axios.post('http://localhost:3000/create-booking', checkoutForm)
+        if(response.status == 201) {
+          router.push('/account')
+        }  
+      } catch (error) {
+        console.log(error);
+      }
 
       //TODO: send user to sucess page if 200 received
 
 }
 </script>
-//TODO:// autofill some section based off local storage
+
 <template>
     <div class="container" style="max-width: 900px;">
       <main>

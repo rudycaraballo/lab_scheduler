@@ -1,9 +1,12 @@
 <script setup>
 import Modal from "./Modal.vue"
 import { defineProps, ref } from "vue";
+import { useRouter } from 'vue-router';
+import axios from "axios";
 
 const props = defineProps(['dayBooked', "endTimeBook","startTimeBooked", "bookingId", "roomNum", "capacity" ])
 
+const router = useRouter();
 
 let roomNumFixed = props.roomNum < 1000 ? ("0" + props.roomNum) : props.roomNum;
 const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
@@ -13,7 +16,17 @@ const editBooking = async() => {
 }
 
 const deleteBooking = async() => {
-
+  let deleteForm = {
+    "bookingId": props.bookingId 
+  }
+  try {
+    const response = await axios.post('http://localhost:3000/delete-booking', deleteForm)
+    if(response.status === 201) {
+      location.reload()
+    }
+  } catch (error) {
+    alert(error)
+  }
 }
 
 </script>
@@ -28,11 +41,60 @@ const deleteBooking = async() => {
          <h3 class="mb-0">Room {{ roomNum }}</h3>
          <div class="mb-1 text-body-secondary">{{dayBooked}}</div>
          <p class="card-text mb-auto">Start time: {{ startTimeBooked }}</p>
-         <p class="card-text mb-auto">End time: {{ endTimeBook }}</p>
-         <button type="button"  class="btn btn-primary btn-sm col-md-2"><RouterLink to="/" class="nav-link active">Edit Booking</RouterLink></button>
+         <p class="card-text mb-auto">End time: {{ endTimeBook }}</p> 
+        <button type="button"  class="btn btn-primary btn-sm col-md-2 edit-btn"><RouterLink to="/" class="nav-link active">Edit Booking</RouterLink></button>
          <!-- TODO trigger modal if they want to delete the booking and then allow a delete once they confirm -->
          
-         <Modal />
+          <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-outline-danger btn-sm col-md-2"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    Cancel Booking
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Deleting this booking will remove your reservation. There is no
+          gaurantee it will still be available at this time. You will have to
+          rebook the room again if you wish to secure the same time slot with
+          this room.
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button @click=deleteBooking type="button" class="btn btn-danger">
+            Delete Booking
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
        </div>
        <div class="col-auto d-none d-lg-block rm-wrapper">
         <img class="rm-img" :src=imageUrl></img>
@@ -44,7 +106,7 @@ const deleteBooking = async() => {
 </template>
 
 <style scoped>
-.rm-wrapper {
+ .rm-wrapper {
   height: 300px;
 }
 
@@ -52,13 +114,7 @@ const deleteBooking = async() => {
   width: 100%;
   height: 100%;
 }
-.row-wrapper {
-  transition: transform 0.3s ease !important; /* Smooth transition for transform property */
+.edit-btn {
+  margin-bottom: 10px;
 }
-.row-wrapper:hover {
-  opacity: 2 !important;
-  transform: scale(1.075);
-
-}
-
 </style>

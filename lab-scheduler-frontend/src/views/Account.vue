@@ -1,6 +1,5 @@
 <script setup>
 import AccountBookingCard from "@/components/AccountBookingCard.vue"
-
 import {jwtDecode} from 'jwt-decode';
 import { ref, defineProps, onBeforeMount } from 'vue';
 import axios from "axios";
