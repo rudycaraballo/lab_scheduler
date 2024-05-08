@@ -28,12 +28,19 @@ const avaialbleTimes= [
 ]
 
 
-
 let capacity = ref(null);
 let date = ref(null);
+let currentDay = ref(null)
 
 let startTime;
 let endTime;
+
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+let yyyy = today.getFullYear();
+
+currentDay.value = yyyy + '-' + mm + '-' + dd;
 
 
 onBeforeMount(async () => {
@@ -76,7 +83,7 @@ function isValidTimes(time1, time2) {
   }
 }
 
-const filterTime = async () => {
+const goToBooking = async () => {
   console.log(startTime, endTime);
   if (!isValidTimes(startTime, endTime)) {
     alert("Your Start Time Is Before Your End Time");
@@ -99,11 +106,10 @@ const filterTime = async () => {
     dayBooked: date.value
   }
 
-  console.log(bookingFilter);
-
   try {
   
     const filterResponse = await axios.get('http://localhost:3000/filtered-bookings', {params: bookingFilter})
+    
     //any rooms are filtered?
     if(filterResponse.data.length >= 1) {
       let bookingRoomId = parseInt(localStorage.getItem('roomId'))
@@ -117,41 +123,26 @@ const filterTime = async () => {
           alert("There is already a booking at this time, Please pick another time");
           return;
         }
+      }    
       }
 
-        router.push(
-          {name: 'checkout', 
-          params: {
-            rmNumCheckout: props.rmNum, 
-            buildingNameCheckout: props.buildingName,
-            capacity: capacity.value,
-            date: date.value,
-            startTime: startTime,
-            endTime: endTime
-            }
-          })
-
-    }
+      router.push(
+        {name: 'checkout', 
+        params: {
+          rmNumCheckout: props.rmNum, 
+          buildingNameCheckout: props.buildingName,
+          capacity: capacity.value,
+          date: date.value,
+          startTime: startTime,
+          endTime: endTime
+          }
+        })
   } catch (err) {
     console.log(err);
   }
 }
 
-const goToBooking = async () => {
 
-  filterTime();
-  // router.push(
-  //   {name: 'checkout', 
-  //   params: {
-  //     rmNumCheckout: props.rmNum, 
-  //     buildingNameCheckout: props.buildingName,
-  //     capacity: capacity.value,
-  //     date: date.value,
-  //     startTime: startTime,
-  //     endTime: endTime
-  //     }
-  //   })
-}
 </script>
 
 <template>  
@@ -190,7 +181,7 @@ const goToBooking = async () => {
     
     <div class="col-lg-3">
       <label for="date" class="form-label">Date</label>
-      <input v-model="date" type="date" class="form-control" id="date" placeholder="" value="" required>
+      <input v-model="date" type="date" class="form-control" id="date" placeholder="" value="" :min=currentDay required>
       <div class="invalid-feedback">
         Valid first name is required.
       </div>

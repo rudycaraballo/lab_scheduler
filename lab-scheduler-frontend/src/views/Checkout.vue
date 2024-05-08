@@ -63,7 +63,8 @@ const checkout = async () => {
 
       //is attendants bigger then capacity?
       //TODO: checkout ticket process
-      if(checkoutForm.capacity > props.capacity) {
+      console.log(checkoutForm.expectedAttendants, parseInt(props.capacity));
+      if(checkoutForm.expectedAttendants > parseInt(props.capacity)) {
         alert("You have too many attendants for this room, please lower your capacity")
         return;
       }
@@ -73,14 +74,14 @@ const checkout = async () => {
       }
 
       //TODO: send form to the db
-      try {
-        const response = await axios.post('http://localhost:3000/create-booking', checkoutForm)
-        if(response.status == 201) {
-          router.push('/account')
-        }  
-      } catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   const response = await axios.post('http://localhost:3000/create-booking', checkoutForm)
+      //   if(response.status == 201) {
+      //     router.push('/account')
+      //   }  
+      // } catch (error) {
+      //   console.log(error);
+      // }
 
       //TODO: send user to sucess page if 200 received
 

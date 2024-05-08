@@ -162,16 +162,6 @@ onBeforeMount(async () => {
       <div id="booking-search" class="container booking-srch">
 
 <div id="booking-search-row" class="row g-4" style="margin-bottom: 50px;">
-
-    <!-- <div class="col-lg-2">
-
-      <label for="startTime" class="form-label">Start Time</label>
-      <input v-model="startTime" type="time" class="form-control" id="time" placeholder="" value="" step="900" required>
-      <div class="invalid-feedback">
-        Valid first name is required.
-      </div>
-
-    </div> -->
     <div class="col-lg-2">
       <label for="time">Start Time:</label>
       <br/>
@@ -189,16 +179,6 @@ onBeforeMount(async () => {
           </select>
 
       </div>
-    <!-- <div class="col-lg-2">
-
-    <label for="endTime" class="form-label">End Time</label>
-    <input v-model="endTime" type="time" class="form-control" id="time" placeholder="" value="" required>
-    <div class="invalid-feedback">
-      Valid first name is required.
-    </div>
-
-    </div> -->
-
 
     <div class="col-lg-2">
       <label for="date" class="form-label">Date:</label>
