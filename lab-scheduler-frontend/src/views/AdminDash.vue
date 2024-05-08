@@ -14,6 +14,7 @@ const changeBookingLogs = () => page.value="booking"
 const changeEdit = () => page.value = "edit"
 const changeDelete = () => page.value = "delete"
 
+
 //Loading all rooms before mounting
 onBeforeMount(async () => {
   try {
@@ -85,7 +86,7 @@ onBeforeMount(async () => {
           </main>
 
           <main v-else-if="page === 'delete'" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <DeleteBooking/>
+            <DeleteBooking />
           </main>
 
 
