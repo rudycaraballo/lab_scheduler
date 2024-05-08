@@ -28,8 +28,8 @@ onBeforeMount(async () => {
 
 <template>
     <div class="container">
-        <div class="text-center">
-            <h1>Hi {{ fName }}</h1>
+        <div class="title text-center">
+            <h1>Hi, {{ fName }}</h1>
             </div>
             <div class="text-center" v-if="userBookings.length === 0">
                 <h2>You have no bookings </h2>
@@ -44,8 +44,13 @@ onBeforeMount(async () => {
             :capacity = "booking.Capacity"
             />
             
-            
-        <router-view />
     </div>
   </template>
+
+
+<style scoped>
+.title {
+  margin-bottom: 30px;
+}
+</style>
   

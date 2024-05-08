@@ -74,7 +74,7 @@ app.post('/login', async (req, res) => {
         return res.json({ accessToken });
 
     } else {
-        return res.send('Not Allowed');
+        return res.status(401).send('Invalid Username or Password');
     }
 
   } catch(err) {

@@ -14,6 +14,9 @@ const login = async () => {
   })
   .then(function (response) {
     console.log(response);
+    if(response.status !== 200) {
+      throw err;
+    }
     localStorage.setItem('token', response.data.accessToken);
     let user = jwtDecode(response.data.accessToken);
     if(user.role === "admin"){
@@ -23,7 +26,12 @@ const login = async () => {
     }
   })
   .catch(function (error) {
-    alert(error.message);
+    console.log(error.response.status);
+    if(error.response.status === 401) {
+      alert("Invalid Username or Password Entered")
+    } else {
+      alert(error)
+    }
   });
 
 

@@ -5,11 +5,29 @@ import axios from 'axios';
 //TODO: Only checkout card should have the image passed since it will do an empty check 
 const props = defineProps(['rmNum', "buildingName"])
 
-const imageUrl = ref(`/src/assets/images/rm${props.rmNum}.jpg`);
-const route = `/checkout/${props.rmNum}/${props.buildingName}`
+const roomNumFixed = props.rmNum < 1000 ? ("0" + props.rmNum) : props.rmNum;
+const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
 
 
 const router = useRouter();
+
+const avaialbleTimes= [
+  '07:00', '07:15', '07:30', '07:45', '08:00',
+  '08:15', '08:30', '08:45', '09:00', '09:15',
+  '09:30', '09:45', '10:00', '10:15', '10:30',
+  '10:45', '11:00', '11:15', '11:30', '11:45',
+  '12:00', '12:15', '12:30', '12:45', '13:00',
+  '13:15', '13:30', '13:45', '14:00', '14:15',
+  '14:30', '14:45', '15:00', '15:15', '15:30',
+  '15:45', '16:00', '16:15', '16:30', '16:45',
+  '17:00', '17:15', '17:30', '17:45', '18:00',
+  '18:15', '18:30', '18:45', '19:00', '19:15',
+  '19:30', '19:45', '20:00', '20:15', '20:30',
+  '20:45', '21:00', '21:15', '21:30', '21:45',
+  '22:00', '22:15', '22:30', '22:45', '23:00'
+]
+
+
 
 let capacity = ref(null);
 let date = ref(null);
@@ -17,35 +35,122 @@ let date = ref(null);
 let startTime;
 let endTime;
 
+
 onBeforeMount(async () => {
   try {
     const response = await axios.get('http://localhost:3000/room-information', {params: {roomNumber: props.rmNum}});
     localStorage.setItem('roomId', response.data[0].RoomID);
     localStorage.setItem('buildingId', response.data[0].BuildingID);
     capacity.value = response.data[0].Capacity
-    console.log(capacity);
-    
   } catch (error) {
     console.error('Error fetching users:', error);
   }
-
+  
 });
 
-const goToBooking = async () => {
-  console.log(date);
-  console.log(endTime);
-  console.log(startTime);
-  router.push(
-    {name: 'checkout', 
-    params: {
-      rmNumCheckout: props.rmNum, 
-      buildingNameCheckout: props.buildingName,
-      capacity: capacity.value,
-      date: date.value,
-      startTime: startTime,
-      endTime: endTime
+function convertTo12hr(time24) {
+    // Extract hours and minutes from the time string
+    const [hours, minutes] = time24.split(':').map(Number);
+
+    // Determine the period (AM/PM)
+    const period = hours >= 12 ? 'PM' : 'AM';
+
+    // Calculate 12-hour format hours
+    const hours12 = hours % 12 || 12;  // Convert 0 to 12 for midnight
+
+    // Format time string as h:mm AM/PM
+    const time12 = `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
+    
+    return time12;
+}
+
+function isValidTimes(time1, time2) {
+  // Create Date objects for each time using generic date
+  const dateTime1 = new Date(`October 13, 2014 ${time1}`);
+  const dateTime2 = new Date(`October 13, 2014 ${time2}`);
+
+  if (dateTime1 >= dateTime2) {
+      return false;
+  } else {
+    return true;
+  }
+}
+
+const filterTime = async () => {
+  console.log(startTime, endTime);
+  if (!isValidTimes(startTime, endTime)) {
+    alert("Your Start Time Is Before Your End Time");
+    return;
+  }
+
+  if(!startTime || !endTime){
+    alert("Your Start or End Time is Empty")
+    return;
+  }
+
+  if (!date.value) {
+    alert("Empty Date Section")
+    return;
+  }
+  
+  let bookingFilter = {
+    bookingStart: `${startTime}:00`,
+    bookingEnd: `${endTime}:00`,
+    dayBooked: date.value
+  }
+
+  console.log(bookingFilter);
+
+  try {
+  
+    const filterResponse = await axios.get('http://localhost:3000/filtered-bookings', {params: bookingFilter})
+    //any rooms are filtered?
+    if(filterResponse.data.length >= 1) {
+      let bookingRoomId = parseInt(localStorage.getItem('roomId'))
+      console.log(bookingRoomId);
+
+      for(var room in filterResponse.data) {
+        let filteredRoomId = filterResponse.data[room].RoomID;
+        console.log(filteredRoomId);
+       
+        if(bookingRoomId === filteredRoomId) {
+          alert("There is already a booking at this time, Please pick another time");
+          return;
+        }
       }
-    })
+
+        router.push(
+          {name: 'checkout', 
+          params: {
+            rmNumCheckout: props.rmNum, 
+            buildingNameCheckout: props.buildingName,
+            capacity: capacity.value,
+            date: date.value,
+            startTime: startTime,
+            endTime: endTime
+            }
+          })
+
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const goToBooking = async () => {
+
+  filterTime();
+  // router.push(
+  //   {name: 'checkout', 
+  //   params: {
+  //     rmNumCheckout: props.rmNum, 
+  //     buildingNameCheckout: props.buildingName,
+  //     capacity: capacity.value,
+  //     date: date.value,
+  //     startTime: startTime,
+  //     endTime: endTime
+  //     }
+  //   })
 }
 </script>
 
@@ -58,120 +163,18 @@ const goToBooking = async () => {
 
        <div class="col p-4 d-flex flex-column position-static">
          <strong class="d-inline-block mb-2 text-primary-emphasis">{{ buildingName }}</strong>
-         <h3 class="mb-0">Room #{{ rmNum }}</h3>
+         <h3 class="mb-0">Room #{{ roomNumFixed}}</h3>
          <div class="mb-1 text-body-secondary">{{date}}</div>
          <p class="card-text mb-auto">Capacity: {{ capacity }}</p>
          <div id="booking-search" class="container booking-srch">
 
 <div id="booking-search-row" class="row g-4" style="margin-bottom: 50px;">
 
-    <!-- <div class="col-lg-3">
-
-      <label for="startTime" class="form-label">Start Time</label>
-      <input v-model="startTime" type="time" class="form-control" id="time" placeholder="" value="" step="900" required>
-      <div class="invalid-feedback">
-        Valid first name is required.
-      </div>
-
-    </div> -->
     <div class="col-lg-2">
       <label for="time">Start Time:</label>
       <br/>
       <select v-model="startTime" class="time" name="time" id="startTime">
-        <option value="5:00">5:00 AM</option>
-        <option value="5:15">5:15 AM</option>
-        <option value="5:30">5:30 AM</option>
-        <option value="5:45">5:45 AM</option>
-        
-        <option value="6:00">6:00 AM</option>
-        <option value="6:15">6:15 AM</option>
-        <option value="6:30">6:30 AM</option>
-        <option value="6:45">6:45 AM</option>
-        
-        <option value="7:00">7:00 AM</option>
-        <option value="7:15">7:15 AM</option>
-        <option value="7:30">7:30 AM</option>
-        <option value="7:45">7:45 AM</option>
-        
-        <option value="8:00 AM">8:00 AM</option>
-        <option value="8:15 AM">8:15 AM</option>
-        <option value="8:30 AM">8:30 AM</option>
-        <option value="8:45 AM">8:45 AM</option>
-        
-        <option value="9:00">9:00 AM</option>
-        <option value="9:15">9:15 AM</option>
-        <option value="9:30">9:30 AM</option>
-        <option value="9:45">9:45 AM</option>
- 
-            <option value="10:00">10:00 AM</option>
-            <option value="10:15">10:15 AM</option>
-            <option value="10:30">10:30 AM</option>
-            <option value="10:45">10:45 AM</option>
-            
-            <option value="11:00">11:00 AM</option>
-            <option value="11:15">11:15 AM</option>
-            <option value="11:30">11:30 AM</option>
-            <option value="11:45">11:45 AM</option>
-            
-            <option value="12:00">12:00 PM</option>
-            <option value="12:15">12:15 PM</option>
-            <option value="12:30">12:30 PM</option>
-            <option value="12:45">12:45 PM</option>
-            
-            <option value="1:00">1:00 PM</option>
-            <option value="1:15">1:15 PM</option>
-            <option value="1:30">1:30 PM</option>
-            <option value="1:45">1:45 PM</option>
-            
-            <option value="2:00">2:00 PM</option>
-            <option value="2:15">2:15 PM</option>
-            <option value="2:30">2:30 PM</option>
-            <option value="2:45">2:45 PM</option>
-            
-            <option value="3:00">3:00 PM</option>
-            <option value="3:15">3:15 PM</option>
-            <option value="3:30">3:30 PM</option>
-            <option value="3:45">3:45 PM</option>
-            
-          <option value="4:00">4:00 PM</option>
-          <option value="4:15">4:15 PM</option>
-          <option value="4:30 PM">4:30 PM</option>
-          <option value="4:45 PM">4:45 PM</option>
-          
-          <option value="5:00">5:00 PM</option>
-          <option value="5:15">5:15 PM</option>
-          <option value="5:30">5:30 PM</option>
-          <option value="5:45">5:45 PM</option>
-          
-          <option value="6:00">6:00 PM</option>
-          <option value="6:15">6:15 PM</option>
-          <option value="6:30">6:30 PM</option>
-          <option value="6:45">6:45 PM</option>
-          
-          <option value="7:00">7:00 PM</option>
-          <option value="7:15">7:15 PM</option>
-          <option value="7:30">7:30 PM</option>
-          <option value="7:45">7:45 PM</option>
-          
-          <option value="8:00">8:00 PM</option>
-          <option value="8:15">8:15 PM</option>
-          <option value="8:30">8:30 PM</option>
-          <option value="8:45">8:45 PM</option>
-          
-          <option value="9:00">9:00 PM</option>
-          <option value="9:15">9:15 PM</option>
-          <option value="9:30">9:30 PM</option>
-          <option value="9:45">9:45 PM</option>
- 
-          <option value="10:00">10:00 PM</option>
-          <option value="10:15">10:15 PM</option>
-          <option value="10:30">10:30 PM</option>
-          <option value="10:45">10:45 PM</option>
-          
-          <option value="11:00">11:00 PM</option>
-          <option value="11:15">11:15 PM</option>
-          <option value="11:30">11:30 PM</option>
-          <option value="11:45">11:45 PM</option>
+        <option v-for="time in avaialbleTimes" :value=time>{{convertTo12hr(time)}}</option>
           </select>
 
       </div>
@@ -180,113 +183,11 @@ const goToBooking = async () => {
       <label for="time">End Time:</label>
       <br/>
       <select v-model="endTime" class="time" name="time" id="endTime">
-        <option value="5:00">5:00 AM</option>
-        <option value="5:15">5:15 AM</option>
-        <option value="5:30">5:30 AM</option>
-        <option value="5:45">5:45 AM</option>
-        
-        <option value="6:00">6:00 AM</option>
-        <option value="6:15">6:15 AM</option>
-        <option value="6:30">6:30 AM</option>
-        <option value="6:45">6:45 AM</option>
-        
-        <option value="7:00">7:00 AM</option>
-        <option value="7:15">7:15 AM</option>
-        <option value="7:30">7:30 AM</option>
-        <option value="7:45">7:45 AM</option>
-        
-        <option value="8:00 AM">8:00 AM</option>
-        <option value="8:15 AM">8:15 AM</option>
-        <option value="8:30 AM">8:30 AM</option>
-        <option value="8:45 AM">8:45 AM</option>
-        
-        <option value="9:00">9:00 AM</option>
-        <option value="9:15">9:15 AM</option>
-        <option value="9:30">9:30 AM</option>
-        <option value="9:45">9:45 AM</option>
- 
-            <option value="10:00">10:00 AM</option>
-            <option value="10:15">10:15 AM</option>
-            <option value="10:30">10:30 AM</option>
-            <option value="10:45">10:45 AM</option>
-            
-            <option value="11:00">11:00 AM</option>
-            <option value="11:15">11:15 AM</option>
-            <option value="11:30">11:30 AM</option>
-            <option value="11:45">11:45 AM</option>
-            
-            <option value="12:00">12:00 PM</option>
-            <option value="12:15">12:15 PM</option>
-            <option value="12:30">12:30 PM</option>
-            <option value="12:45">12:45 PM</option>
-            
-            <option value="1:00">1:00 PM</option>
-            <option value="1:15">1:15 PM</option>
-            <option value="1:30">1:30 PM</option>
-            <option value="1:45">1:45 PM</option>
-            
-            <option value="2:00">2:00 PM</option>
-            <option value="2:15">2:15 PM</option>
-            <option value="2:30">2:30 PM</option>
-            <option value="2:45">2:45 PM</option>
-            
-            <option value="3:00">3:00 PM</option>
-            <option value="3:15">3:15 PM</option>
-            <option value="3:30">3:30 PM</option>
-            <option value="3:45">3:45 PM</option>
-            
-          <option value="4:00">4:00 PM</option>
-          <option value="4:15">4:15 PM</option>
-          <option value="4:30 PM">4:30 PM</option>
-          <option value="4:45 PM">4:45 PM</option>
-          
-          <option value="5:00">5:00 PM</option>
-          <option value="5:15">5:15 PM</option>
-          <option value="5:30">5:30 PM</option>
-          <option value="5:45">5:45 PM</option>
-          
-          <option value="6:00">6:00 PM</option>
-          <option value="6:15">6:15 PM</option>
-          <option value="6:30">6:30 PM</option>
-          <option value="6:45">6:45 PM</option>
-          
-          <option value="7:00">7:00 PM</option>
-          <option value="7:15">7:15 PM</option>
-          <option value="7:30">7:30 PM</option>
-          <option value="7:45">7:45 PM</option>
-          
-          <option value="8:00">8:00 PM</option>
-          <option value="8:15">8:15 PM</option>
-          <option value="8:30">8:30 PM</option>
-          <option value="8:45">8:45 PM</option>
-          
-          <option value="9:00">9:00 PM</option>
-          <option value="9:15">9:15 PM</option>
-          <option value="9:30">9:30 PM</option>
-          <option value="9:45">9:45 PM</option>
- 
-          <option value="10:00">10:00 PM</option>
-          <option value="10:15">10:15 PM</option>
-          <option value="10:30">10:30 PM</option>
-          <option value="10:45">10:45 PM</option>
-          
-          <option value="11:00">11:00 PM</option>
-          <option value="11:15">11:15 PM</option>
-          <option value="11:30">11:30 PM</option>
-          <option value="11:45">11:45 PM</option>
+        <option v-for="time in avaialbleTimes" :value=time>{{convertTo12hr(time)}}</option>
           </select>
 
       </div>
     
-    <!-- <div class="col-lg-3">
-
-    <label for="endTime" class="form-label">End Time</label>
-    <input v-model="endTime" type="time" class="form-control" id="time" placeholder="" value="" required>
-    <div class="invalid-feedback">
-      Valid first name is required.
-    </div>
-
-    </div> -->
     <div class="col-lg-3">
       <label for="date" class="form-label">Date</label>
       <input v-model="date" type="date" class="form-control" id="date" placeholder="" value="" required>
@@ -299,9 +200,8 @@ const goToBooking = async () => {
 </div>
 
 </div>
-
-         <button @click="goToBooking" type="button" class="btn btn-primary btn-sm col-md-2">Book This Room</button>
-       </div>
+    <button @click="goToBooking" type="button" class="btn btn-primary btn-sm col-md-2">Book This Room</button>
+</div>
 
      </div>
 
