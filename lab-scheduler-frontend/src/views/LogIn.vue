@@ -17,9 +17,9 @@ const login = async () => {
     localStorage.setItem('token', response.data.accessToken);
     let user = jwtDecode(response.data.accessToken);
     if(user.role === "admin"){
-      router.push('/admin');
+      window.location.href = "/admin"; 
     } else {
-      router.push("/account");
+      window.location.href = "/account"; 
     }
   })
   .catch(function (error) {

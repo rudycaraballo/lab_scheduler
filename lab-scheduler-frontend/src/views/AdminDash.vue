@@ -1,12 +1,19 @@
 <script setup>
 import axios from "axios";
 import { ref, onBeforeMount} from "vue";
-
+import DeleteBooking from "@/components/pages/DeleteBooking.vue";
+import EditBooking from "@/components/pages/EditBooking.vue";
 import BookingLog from "@/components/BookingLog.vue";
 
 const bookingHeaders = ["Booking#", "User", "UserID", "Time", "Date", "Location"]
 
+let page = ref("booking")
 let bookings = ref([])
+
+const changeBookingLogs = () => page.value="booking"
+const changeEdit = () => page.value = "edit"
+const changeDelete = () => page.value = "delete"
+
 //Loading all rooms before mounting
 onBeforeMount(async () => {
   try {
@@ -27,19 +34,19 @@ onBeforeMount(async () => {
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a @click=changeBookingLogs class="nav-link active" href="#">
                   <span data-feather="home"></span>
                   Booking Logs<span class="sr-only"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a @click=changeEdit class="nav-link" href="#">
                   <span data-feather="file"></span>
                   Edit Booking
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a @click=changeDelete class="nav-link" href="#">
                   <span data-feather="shopping-cart"></span>
                   Delete Booking
                 </a>
@@ -48,9 +55,7 @@ onBeforeMount(async () => {
           </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
-
+        <main v-if="page === 'booking'"role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <h2>Booking Logs</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -74,6 +79,16 @@ onBeforeMount(async () => {
             </table>
           </div>
         </main>
+
+        <main v-else-if="page === 'edit'" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <EditBooking/>
+          </main>
+
+          <main v-else-if="page === 'delete'" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <DeleteBooking/>
+          </main>
+
+
       </div>
     </div>
 

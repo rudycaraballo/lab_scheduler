@@ -154,17 +154,7 @@ onBeforeMount(async () => {
     <div class="col-lg-2">
       <label for="time">Start Time:</label>
       <br/>
-      <select v-model="startTime" class="time" name="time" id="startTime">
-        <option value="5:00">5:00 AM</option>
-        <option value="5:15">5:15 AM</option>
-        <option value="5:30">5:30 AM</option>
-        <option value="5:45">5:45 AM</option>
-        
-        <option value="6:00">6:00 AM</option>
-        <option value="6:15">6:15 AM</option>
-        <option value="6:30">6:30 AM</option>
-        <option value="6:45">6:45 AM</option>
-        
+      <select v-model="startTime" class="time" name="time" id="startTime">        
         <option value="7:00">7:00 AM</option>
         <option value="7:15">7:15 AM</option>
         <option value="7:30">7:30 AM</option>
@@ -257,16 +247,6 @@ onBeforeMount(async () => {
       <label for="time">End Time:</label>
       <br/>
       <select v-model="endTime" class="time" name="time" id="endTime">
-        <option value="5:00">5:00 AM</option>
-        <option value="5:15">5:15 AM</option>
-        <option value="5:30">5:30 AM</option>
-        <option value="5:45">5:45 AM</option>
-        
-        <option value="6:00">6:00 AM</option>
-        <option value="6:15">6:15 AM</option>
-        <option value="6:30">6:30 AM</option>
-        <option value="6:45">6:45 AM</option>
-        
         <option value="7:00">7:00 AM</option>
         <option value="7:15">7:15 AM</option>
         <option value="7:30">7:30 AM</option>
