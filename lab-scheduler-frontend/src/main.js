@@ -8,5 +8,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-createApp(App).use(router).mount('#app')
+let app = createApp(App).use(router)
+app.config.globalProperties.msg= 'some value';
+
+app.mount('#app')
 

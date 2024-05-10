@@ -198,8 +198,6 @@ onBeforeMount(async () => {
 </div>
 
   <div class="container">
-<!-- 
-    <DescriptionCard v-for="room in rooms" :key="room.id" :room="room"/> -->
     <DescriptionCard v-for="room in pageContent[currentPage]" :key="room.id" :room="room"/>
 
         <nav class="">
@@ -212,8 +210,6 @@ onBeforeMount(async () => {
           <div v-for="page in pages" :key="page"> <!-- Loop 3 times -->
             <li :key="page" class="page-item"><a @click="changePage(page)" class="page-link" href="#">{{ page}}</a></li>
           </div>
-          <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li> -->
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>

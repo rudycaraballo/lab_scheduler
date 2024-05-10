@@ -10,9 +10,7 @@ let deleteABooking= async(mysqlp, fs, bookingId) => {
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,
-    });
-
-    console.log(bookingId);    
+    }); 
         
     try {
         //return room info and any bookings it has

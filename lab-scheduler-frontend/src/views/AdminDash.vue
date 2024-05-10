@@ -20,7 +20,6 @@ onBeforeMount(async () => {
   try {
     const response = await axios.get('http://localhost:3000/monthly-report');
     bookings.value = response.data;
-    console.log(bookings.value);
 
   } catch (error) {
     console.error('Error getting monthly report:', error);

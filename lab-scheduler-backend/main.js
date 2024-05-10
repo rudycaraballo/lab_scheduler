@@ -18,8 +18,8 @@ import getRoomInfo from "./database/getRoomInfo.js";
 import bookARoom from "./database/bookARoom.js";
 import getUserAccount from "./database/getUserAccount.js";
 import getMonthlyReport from "./database/getMonthlyReport.js";
-import deleteARoom from "./database/deleteBooking.js";
 import deleteABooking from "./database/deleteBooking.js";
+import editABooking from "./database/editABooking.js";
 
 dotenv.config()
 const app = express();
@@ -106,6 +106,19 @@ app.post('/create-booking', async (req, res) => {
 
 })
 
+app.post('/edit-booking', async (req, res) => {
+  let editBookingForm = req.body
+  try {
+    let result = editABooking(mysqlp, fs, editBookingForm)
+    res.status(201).send("Booking Edited")
+    
+  } catch (error) {
+    console.log(error)
+    res.status(500).send()
+    
+  }
+
+})
 
 app.get('/account-info', async (req, res) => {
   let userId = req.query.userId;
@@ -171,18 +184,6 @@ app.get('/filtered-bookings', async (req, res) => {
   }
 })
 
-
-
-
-app.get('/', async (req, res) => {
-  try {
-    await addUser();
-    res.status(200);
-  }catch (err) {
-    res.status(err);
-  }
-  res.send('Hello World!')
-})
 
 
 
