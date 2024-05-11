@@ -4,13 +4,14 @@ import RoomCard from "../components/HomeCard.vue"
 import FAQ from  "../components/FAQS.vue"
 import { ref, onBeforeMount} from "vue";
 import axios from "axios";
+import { API_ENDPOINT } from "../../global";
 
 let rooms = ref([]);
 
 //Loading all rooms before mounting
 onBeforeMount(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/available-rooms');
+    const response = await axios.get(`${API_ENDPOINT}/available-rooms`);
     rooms.value = response.data.slice(0,3);
 
     console.log(rooms.value);

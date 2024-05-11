@@ -2,6 +2,7 @@
 import {ref, defineProps, onBeforeMount, onMounted} from 'vue'
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { API_ENDPOINT } from '../../global';
 //TODO: Only checkout card should have the image passed since it will do an empty check 
 const props = defineProps(['rmNum', "buildingName"])
 
@@ -45,7 +46,7 @@ currentDay.value = yyyy + '-' + mm + '-' + dd;
 
 onBeforeMount(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/room-information', {params: {roomNumber: props.rmNum}});
+    const response = await axios.get(`${API_ENDPOINT}/room-information`, {params: {roomNumber: props.rmNum}});
     localStorage.setItem('roomId', response.data[0].RoomID);
     localStorage.setItem('buildingId', response.data[0].BuildingID);
     capacity.value = response.data[0].Capacity
@@ -108,7 +109,7 @@ const goToBooking = async () => {
 
   try {
   
-    const filterResponse = await axios.get('http://localhost:3000/filtered-bookings', {params: bookingFilter})
+    const filterResponse = await axios.get(`${API_ENDPOINT}/filtered-bookings`, {params: bookingFilter})
     
     //any rooms are filtered?
     if(filterResponse.data.length >= 1) {

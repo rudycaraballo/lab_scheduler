@@ -2,13 +2,14 @@
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import { jwtDecode } from "jwt-decode";
+import { API_ENDPOINT } from "../../global";
 
 const router = useRouter();
 let email = ""
 let password = ""
 
 const login = async () => {
-  axios.post('http://localhost:3000/login', {
+  axios.post(`${API_ENDPOINT}/login`, {
     email: email,
     pword: password
   })

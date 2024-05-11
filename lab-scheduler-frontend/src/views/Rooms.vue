@@ -2,6 +2,7 @@
 import DescriptionCard from "@/components/DescriptionCard.vue";
 import axios from "axios";
 import { ref, onBeforeMount} from "vue";
+import { API_ENDPOINT } from "../../global";
 
 let startTime;
 let endTime;
@@ -82,11 +83,11 @@ const filterTime = async () => {
   try {
     
     //TODO: make this one axios call and just have it return a joined table for all rooms that don't include anything in the booking table + rooms table 
-    const filterResponse = await axios.get('http://localhost:3000/filtered-bookings', {params: bookingFilter})
+    const filterResponse = await axios.get(`${API_ENDPOINT}/filtered-bookings`, {params: bookingFilter})
     //any rooms are filtered?
     if(filterResponse.data.length >= 1) {
 
-      const allRoomsResponse = await axios.get('http://localhost:3000/available-rooms');
+      const allRoomsResponse = await axios.get(`${API_ENDPOINT}/available-rooms`);
       let allRooms = allRoomsResponse.data
       let excludedRooms = [];
 
@@ -100,7 +101,7 @@ const filterTime = async () => {
        generatePages()  
        //generate all rooms if not  
     } else {
-      const response = await axios.get('http://localhost:3000/available-rooms');
+      const response = await axios.get(`${API_ENDPOINT}/available-rooms`);
       rooms.value = response.data;
       generatePages()
     }
@@ -148,7 +149,7 @@ if(filler.length > 0 ) {
 //Loading all rooms before mounting
 onBeforeMount(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/available-rooms');
+    const response = await axios.get(`${API_ENDPOINT}/available-rooms`);
     rooms.value = response.data;
     generatePages()
     

@@ -4,7 +4,7 @@ import { ref, onBeforeMount} from "vue";
 import DeleteBooking from "@/components/pages/DeleteBooking.vue";
 import EditBooking from "@/components/pages/EditBooking.vue";
 import BookingLog from "@/components/BookingLog.vue";
-
+import { API_ENDPOINT } from "../../global";
 const bookingHeaders = ["Booking#", "User", "UserID", "Time", "Date", "Location"]
 
 let page = ref("booking")
@@ -18,7 +18,7 @@ const changeDelete = () => page.value = "delete"
 //Loading all rooms before mounting
 onBeforeMount(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/monthly-report');
+    const response = await axios.get(`${API_ENDPOINT}/monthly-report`);
     bookings.value = response.data;
 
   } catch (error) {

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { API_ENDPOINT } from '../../../global';
 
 let bookingId;
 
@@ -9,7 +10,7 @@ const deleteBooking = async() => {
     "bookingId": bookingId 
   }
   try {
-    const response = await axios.post('http://localhost:3000/delete-booking', deleteForm)
+    const response = await axios.post(`${API_ENDPOINT}/delete-booking`, deleteForm)
     if(response.status === 201) {
       alert("You deleted this booking")
       location.reload()

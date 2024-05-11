@@ -49,6 +49,7 @@
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import bcrypt from "bcryptjs";
+import { API_ENDPOINT } from "../../global";
 
 const router = useRouter();
 
@@ -90,7 +91,7 @@ const signUp = async () => {
 //take user to account page
 
 user.pword = await bcrypt.hash(user.pword, 10);  
-  await axios.post('http://localhost:3000/signup', user)
+  await axios.post(`${API_ENDPOINT}/signup`, user)
   .then(function (response) {
     if(response.status == 201) {
       router.push('/account')

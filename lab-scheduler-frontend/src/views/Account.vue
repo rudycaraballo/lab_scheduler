@@ -1,8 +1,9 @@
 <script setup>
 import AccountBookingCard from "@/components/AccountBookingCard.vue"
 import {jwtDecode} from 'jwt-decode';
-import { ref, defineProps, onBeforeMount } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import axios from "axios";
+import { API_ENDPOINT } from "../../global";
 
 const token = localStorage.getItem('token');
 let user = jwtDecode(token);
@@ -14,7 +15,7 @@ let fName = user.fName;
 //TODO: use username to check if they have any bookings and reactivly alter this page from it
 onBeforeMount(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/account-info', {params:{userId: user.userId}});
+    const response = await axios.get(`${API_ENDPOINT}/account-info`, {params:{userId: user.userId}});
     userBookings.value = response.data;
     console.log(userBookings.value);
 

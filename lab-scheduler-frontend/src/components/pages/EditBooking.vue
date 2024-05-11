@@ -41,6 +41,18 @@ const avaialbleTimes= [
   '22:00', '22:15', '22:30', '22:45', '23:00'
 ]
 
+function isValidTimes(time1, time2) {
+  // Create Date objects for each time using generic date
+  const dateTime1 = new Date(`October 13, 2014 ${time1}`);
+  const dateTime2 = new Date(`October 13, 2014 ${time2}`);
+
+  if (dateTime1 >= dateTime2) {
+      return false;
+  } else {
+    return true;
+  }
+}
+
 function convertTo12hr(time24) {
     // Extract hours and minutes from the time string
     const [hours, minutes] = time24.split(':').map(Number);
@@ -66,15 +78,24 @@ const editBooking = async() => {
 
   if(bookingForm.newEndTime === "" && bookingForm.newStartTime === "" && !newDate.value && !bookingForm.newRoom) {
     alert("All edit fields are empty")
+    return;
   }
 
   if(bookingForm.newStartTime === "" && bookingForm.newEndTime ==="") {
     alert("Only one time was filled in")
+    return;
   }
 
+  if (!isValidTimes(bookingForm.newStartTime, bookingForm.newEndTime)) {
+    alert("Your Start Time Is Before Your End Time");
+    return;
+  }
+  
   if(newDate.value) {
     bookingForm.newDate = newDate.value;
   }
+
+
 
   try {
     const response = await axios.post(`${API_ENDPOINT}/edit-booking`, bookingForm)

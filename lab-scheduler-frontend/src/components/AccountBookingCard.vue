@@ -2,6 +2,7 @@
 import Modal from "./Modal.vue"
 import { defineProps, ref } from "vue";
 import { useRouter } from 'vue-router';
+import { API_ENDPOINT } from "../../global";
 import axios from "axios";
 
 const props = defineProps(['dayBooked', "endTimeBook","startTimeBooked", "bookingId", "roomNum", "capacity" ])
@@ -20,7 +21,7 @@ const deleteBooking = async() => {
     "bookingId": props.bookingId 
   }
   try {
-    const response = await axios.post('http://localhost:3000/delete-booking', deleteForm)
+    const response = await axios.post(`${API_ENDPOINT}/delete-booking`, deleteForm)
     if(response.status === 201) {
       location.reload()
     }
