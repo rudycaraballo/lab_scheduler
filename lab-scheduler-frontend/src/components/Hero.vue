@@ -1,6 +1,7 @@
 
 <script setup>
 import router from "../router";
+import { ref, onBeforeMount} from "vue";
 
 let roomNum = 1100
 const route = ref(`/public/${roomNum}.jpg`)
