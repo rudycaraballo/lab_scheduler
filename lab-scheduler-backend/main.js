@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv';
 
+
 //Database functions
 import addUser  from "./database/addUser.js";
 import getRooms from "./database/getRooms.js";
@@ -24,14 +25,14 @@ import sendEmail from "./database/sendEmail.js";
 
 dotenv.config()
 const app = express();
-const port = 3000;
+const port = (process.env.PORT || 3000);
 
-// Middleware
+
 app.use(bodyParser.json());
 app.use(cors());
-//TODO: sign up endpoint, check if user exists, if not add to db and return 200 status
 
-// app.use(signUpRouter);
+
+
 app.post('/signup', async (req, res) => {
   let userObj = req.body;
   
