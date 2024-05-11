@@ -3,7 +3,7 @@ import { ref, defineProps } from 'vue';
 const props = defineProps(['room'])
 
 let roomNumFixed = props.room.RoomNum < 1000 ? ("0" + props.room.RoomNum) : props.room.RoomNum;
-const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
+const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
 const route = `room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
 
 </script>

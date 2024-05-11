@@ -3,7 +3,7 @@ import {ref} from "vue"
 const props = defineProps(['rmNumCheckout', "buildingNameCheckout", "capacity", "startTime", "endTime", "date"])
 
 let roomNumFixed = props.rmNumCheckout < 1000 ? ("0" + props.rmNumCheckout) : props.rmNumCheckout;
-const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
+const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
 
 //TODO: check that the room in the link even exists in DB
 //TODO: add

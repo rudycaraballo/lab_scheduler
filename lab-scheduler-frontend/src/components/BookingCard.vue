@@ -7,7 +7,7 @@ import { API_ENDPOINT } from '../../global';
 const props = defineProps(['rmNum', "buildingName"])
 
 const roomNumFixed = props.rmNum < 1000 ? ("0" + props.rmNum) : props.rmNum;
-const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
+const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
 
 
 const router = useRouter();

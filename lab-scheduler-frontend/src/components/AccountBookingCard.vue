@@ -10,7 +10,7 @@ const props = defineProps(['dayBooked', "endTimeBook","startTimeBooked", "bookin
 const router = useRouter();
 
 let roomNumFixed = props.roomNum < 1000 ? ("0" + props.roomNum) : props.roomNum;
-const imageUrl = ref(`/src/assets/images/rm${roomNumFixed}.jpg`);
+const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
 
 const editBooking = async() => {
 

@@ -44,14 +44,13 @@ onBeforeMount(async () => {
       <p class="lead">Some great placeholder content for the first rooms that will be descirbed.</p>
     </div>
     <div class="col-md-7">
-      <img class="campus-img" src="/src/assets/images/mainCampus.jpg" alt="" srcset="">
+      <img class="campus-img" src="/mainCampus.jpg" alt="" srcset="">
     </div>
   </div>
   </div>
   
     <FAQ />
-   
-
+  
 </template>
 
 <style scoped>
