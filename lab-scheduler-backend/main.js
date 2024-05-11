@@ -95,11 +95,6 @@ app.post('/login', async (req, res) => {
     console.error(err);
     return res.status(500).send();
   }
-  // try {
-  //   //TODO: return user object to compare passwords
-  // } catch {
-  //     res.status(500).send();
-  // }
 });
 
 

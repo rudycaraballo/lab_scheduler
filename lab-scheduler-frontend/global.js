@@ -1,1 +1,1 @@
-export const API_ENDPOINT = "http://localhost:3000"
+export const API_ENDPOINT = "https://dry-atoll-35290-deea0f297399.herokuapp.com/"
