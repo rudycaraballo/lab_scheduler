@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import {jwtDecode} from 'jwt-decode';
 import axios from "axios";
 import { useRouter } from 'vue-router';
+import { API_ENDPOINT } from "../../global";
 //TODO: check that props passed arent empty, This would mean /checkout endpoint was got raw
 
 const token = localStorage.getItem('token');
@@ -70,12 +71,21 @@ const checkout = async () => {
       }
 
       if(checkoutForm.itTicket !== "") {
-        console.log("sending this to the IT team");
+        let emailForm = {
+          "email": checkoutForm.owEmail,
+          "altEmail": checkoutForm.altEmail,
+          "message": checkoutForm.itTicket
+        }
+       try {
+        const response = await axios.post(`${API_ENDPOINT}/send-email`, emailForm)
+       } catch (error) {
+        alert(error)
+       }
       }
 
       //TODO: send form to the db
       try {
-        const response = await axios.post('http://localhost:3000/create-booking', checkoutForm)
+        const response = await axios.post(`${API_ENDPOINT}/create-booking`, checkoutForm)
         if(response.status == 201) {
           router.push('/account')
         }  

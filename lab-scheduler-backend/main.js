@@ -20,6 +20,7 @@ import getUserAccount from "./database/getUserAccount.js";
 import getMonthlyReport from "./database/getMonthlyReport.js";
 import deleteABooking from "./database/deleteBooking.js";
 import editABooking from "./database/editABooking.js";
+import sendEmail from "./database/sendEmail.js";
 
 dotenv.config()
 const app = express();
@@ -49,6 +50,17 @@ app.post('/signup', async (req, res) => {
   }
 })
 
+
+app.post('/send-email', async(req, res) => {
+  let {email, altEmail, message} = req.body
+
+  try {
+    sendEmail(email, altEmail, message)
+    res.status(201).send("sent email")
+  } catch (error) {
+    res.status(500).send(error)
+  }
+})
 
 
 
