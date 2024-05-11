@@ -2,6 +2,11 @@
 <script setup>
 import router from "../router";
 
+let roomNum = 1100
+const route = ref(`/public/${roomNum}.jpg`)
+
+const route2 = ref(`/src/assets/${roomNum}`)
+
 </script>
 
 <template>
@@ -20,8 +25,8 @@ import router from "../router";
       <div class="col-10 col-sm-8 col-lg-6">
         
        
-        <img src="/public/rm0111.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="900" height="700" loading="lazy">
-        <img src="/src/assets/rm0101.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="900" height="700" loading="lazy">
+        <img :src=route class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="900" height="700" loading="lazy">
+        <img :src=route2 class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="900" height="700" loading="lazy">
       </div>
       <div class="col-lg-6">
         <h1 class="display-5 fw-bold lh-1 mb-3">Unigather</h1>
