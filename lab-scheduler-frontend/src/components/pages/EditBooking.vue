@@ -86,8 +86,6 @@ const editBooking = async() => {
     bookingForm.newDate = newDate.value;
   }
 
-
-
   try {
     const response = await axios.post(`${API_ENDPOINT}/edit-booking`, bookingForm)
     if(response.status === 201) {

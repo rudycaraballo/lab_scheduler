@@ -12,9 +12,6 @@ const router = useRouter();
 let roomNumFixed = props.roomNum < 1000 ? ("0" + props.roomNum) : props.roomNum;
 const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
 
-const editBooking = async() => {
-
-}
 
 const deleteBooking = async() => {
   let deleteForm = {
@@ -43,7 +40,6 @@ const deleteBooking = async() => {
          <div class="mb-1 text-body-secondary">{{dayBooked}}</div>
          <p class="card-text mb-auto">Start time: {{ startTimeBooked }}</p>
          <p class="card-text mb-auto">End time: {{ endTimeBook }}</p> 
-        <button type="button"  class="btn btn-primary btn-sm col-md-2 edit-btn"><RouterLink to="/" class="nav-link active">Edit Booking</RouterLink></button>
          
           <!-- Button trigger modal -->
   <button

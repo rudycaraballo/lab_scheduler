@@ -12,15 +12,6 @@ const route2 = ref(`/src/assets/rm${roomNum}.jpg`)
 </script>
 
 <template>
-     <!-- <div class="px-4 py-5 my-4 text-center">
-    <h1 class="display-5 fw-bold ">Booking with Ease </h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Unlock Your Perfect Space: Book Your Room, Anytime, Anywhere!</p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button"  class="btn btn-primary btn-lg px-4"><RouterLink to="/rooms" class="nav-link active">Book a Room</RouterLink></button>
-      </div>
-    </div>
-  </div> -->
 
   <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
