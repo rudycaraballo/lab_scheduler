@@ -15,7 +15,7 @@ const changeEdit = () => page.value = "edit"
 const changeDelete = () => page.value = "delete"
 
 
-//Loading all rooms before mounting
+
 onBeforeMount(async () => {
   try {
     const response = await axios.get(`${API_ENDPOINT}/monthly-report`);

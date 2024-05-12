@@ -27,20 +27,14 @@ const logOut = () => {
   router.push("/")
 }
 
-// const logIn = () => {
-//   isLoggedIn.value = true;
-//   const token = localStorage.getItem('token');
-
-//   router.push("/")
-// }
-
 </script>
+
 <template>
   <div class="container">
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
         <a href="/">
-          <img src="/src/assets/images/logo.jpg" alt="logo" id="logo">
+          <img src="/logo.jpg" alt="logo" id="logo">
         </a>
   
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +44,6 @@ const logOut = () => {
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
           </ul> 
-          <!-- TODO make this a regular link that causes a function to reload and router push -->
           <a class="nav-link" href="/rooms">Rooms</a>
           <a class="nav-link" :href=accountRoute>Account</a>
           <a class="nav-link" href="/sign-up">Sign Up</a>

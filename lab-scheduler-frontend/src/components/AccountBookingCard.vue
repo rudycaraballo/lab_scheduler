@@ -44,7 +44,6 @@ const deleteBooking = async() => {
          <p class="card-text mb-auto">Start time: {{ startTimeBooked }}</p>
          <p class="card-text mb-auto">End time: {{ endTimeBook }}</p> 
         <button type="button"  class="btn btn-primary btn-sm col-md-2 edit-btn"><RouterLink to="/" class="nav-link active">Edit Booking</RouterLink></button>
-         <!-- TODO trigger modal if they want to delete the booking and then allow a delete once they confirm -->
          
           <!-- Button trigger modal -->
   <button

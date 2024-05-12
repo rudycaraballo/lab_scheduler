@@ -6,8 +6,6 @@ import Home from "../views/Home.vue";
 import LogIn from "../views/LogIn.vue";
 import Checkout from "../views/Checkout.vue";
 import Account from "../views/Account.vue";
-import Test from "../views/Test.vue";
-import About from "../views/About.vue";
 import Rooms from "../views/Rooms.vue";
 import Success from "@/views/Success.vue";
 import RoomDes from "../views/RoomDescription.vue";
@@ -27,11 +25,6 @@ const routes = [
     path: "/sign-up",
     name: "sign-up",
     component: SignUp,
-  },
-  {
-    path: "/test",
-    name: "test",
-    component: Test,
   },
   {
     path: "/account",
@@ -65,8 +58,9 @@ const routes = [
      name: "success", 
      component: Success 
   },
-  { path: "/about", name: "about", component: About },
-  { path: "/rooms", name: "rooms", component: Rooms },
+  { 
+    path: "/rooms", name: "rooms", component: Rooms 
+  },
   {
     path: "/room-desc/:rmNum/:buildingName",
     component: RoomDes,

@@ -5,7 +5,7 @@ import {jwtDecode} from 'jwt-decode';
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import { API_ENDPOINT } from "../../global";
-//TODO: check that props passed arent empty, This would mean /checkout endpoint was got raw
+
 
 const token = localStorage.getItem('token');
 const roomId = localStorage.getItem('roomId');
@@ -42,15 +42,11 @@ let checkoutForm = {
 }
 
 
-// const emailTicket = async () => {
-
-// }
-
 const checkout = async () => {
-      //check for any empty missing values
+
       for (const [key, value] of Object.entries(checkoutForm)) {
         if (value === "" && key !== "section" && key !== "itTicket") {
-            alert("One of your inputs are empty, Please check and try again")
+            alert("One of your required inputs are empty, Please check and try again")
             return
         }
     }
@@ -62,9 +58,6 @@ const checkout = async () => {
         return;
       }
 
-      //is attendants bigger then capacity?
-      //TODO: checkout ticket process
-      console.log(checkoutForm.expectedAttendants, parseInt(props.capacity));
       if(checkoutForm.expectedAttendants > parseInt(props.capacity)) {
         alert("You have too many attendants for this room, please lower your capacity")
         return;
@@ -76,14 +69,13 @@ const checkout = async () => {
           "altEmail": checkoutForm.altEmail,
           "message": checkoutForm.itTicket
         }
-       try {
-        const response = await axios.post(`${API_ENDPOINT}/send-email`, emailForm)
-       } catch (error) {
-        alert(error)
-       }
+          try {
+            const response = await axios.post(`${API_ENDPOINT}/send-email`, emailForm)
+          } catch (error) {
+            alert(error)
+          }
       }
 
-      //TODO: send form to the db
       try {
         const response = await axios.post(`${API_ENDPOINT}/create-booking`, checkoutForm)
         if(response.status == 201) {
@@ -92,8 +84,6 @@ const checkout = async () => {
       } catch (error) {
         console.log(error);
       }
-
-      //TODO: send user to sucess page if 200 received
 
 }
 </script>

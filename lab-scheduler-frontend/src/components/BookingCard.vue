@@ -3,7 +3,7 @@ import {ref, defineProps, onBeforeMount, onMounted} from 'vue'
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../global';
-//TODO: Only checkout card should have the image passed since it will do an empty check 
+
 const props = defineProps(['rmNum', "buildingName"])
 
 const roomNumFixed = props.rmNum < 1000 ? ("0" + props.rmNum) : props.rmNum;
@@ -57,23 +57,14 @@ onBeforeMount(async () => {
 });
 
 function convertTo12hr(time24) {
-    // Extract hours and minutes from the time string
     const [hours, minutes] = time24.split(':').map(Number);
-
-    // Determine the period (AM/PM)
     const period = hours >= 12 ? 'PM' : 'AM';
-
-    // Calculate 12-hour format hours
-    const hours12 = hours % 12 || 12;  // Convert 0 to 12 for midnight
-
-    // Format time string as h:mm AM/PM
+    const hours12 = hours % 12 || 12;  
     const time12 = `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
-    
     return time12;
 }
 
 function isValidTimes(time1, time2) {
-  // Create Date objects for each time using generic date
   const dateTime1 = new Date(`October 13, 2014 ${time1}`);
   const dateTime2 = new Date(`October 13, 2014 ${time2}`);
 
@@ -85,7 +76,6 @@ function isValidTimes(time1, time2) {
 }
 
 const goToBooking = async () => {
-  console.log(startTime, endTime);
   if (!isValidTimes(startTime, endTime)) {
     alert("Your Start Time Is Before Your End Time");
     return;
@@ -111,15 +101,12 @@ const goToBooking = async () => {
   
     const filterResponse = await axios.get(`${API_ENDPOINT}/filtered-bookings`, {params: bookingFilter})
     
-    //any rooms are filtered?
     if(filterResponse.data.length >= 1) {
       let bookingRoomId = parseInt(localStorage.getItem('roomId'))
-      console.log(bookingRoomId);
 
       for(var room in filterResponse.data) {
         let filteredRoomId = filterResponse.data[room].RoomID;
-        console.log(filteredRoomId);
-       
+      
         if(bookingRoomId === filteredRoomId) {
           alert("There is already a booking at this time, Please pick another time");
           return;

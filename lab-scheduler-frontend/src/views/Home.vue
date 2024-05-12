@@ -13,9 +13,6 @@ onBeforeMount(async () => {
   try {
     const response = await axios.get(`${API_ENDPOINT}/available-rooms`);
     rooms.value = response.data.slice(0,3);
-
-    console.log(rooms.value);
-    
   } catch (error) {
     console.error('Error fetching users:', error);
   }}

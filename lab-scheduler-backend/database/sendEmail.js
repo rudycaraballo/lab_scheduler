@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 
+
 let sendEmail = async (email, altEmail, message) => {
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -7,8 +8,8 @@ const transporter = nodemailer.createTransport({
     port: 587, // For TLS
     secure: false, // true for 465 (SSL), false for other ports like 587 (TLS)
     auth: {
-        user: 'unigather24@gmail.com',
-        pass: 'twpl fyiz wzeg uewx' // Consider using OAuth2 or an App password for Gmail
+        user: process.env.SMTP_EMAIL,
+        pass: "twpl fyiz wzeg uewx" // Consider using OAuth2 or an App password for Gmail
     }
 });
 
@@ -17,7 +18,7 @@ const transporter = nodemailer.createTransport({
     try {
         const info = await transporter.sendMail({
             from: '"User" <user@oldwestbury.edu>', // Sender address
-            to: "iggydeveloper@protonmail.com", // List of receivers
+            to: process.env.SMTP_RECIPIENT, // List of receivers
             subject: "IT TIcket", // Subject line
             text: msg, // Plain text body
         });

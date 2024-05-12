@@ -14,7 +14,6 @@ const login = async () => {
     pword: password
   })
   .then(function (response) {
-    console.log(response);
     if(response.status !== 200) {
       throw err;
     }

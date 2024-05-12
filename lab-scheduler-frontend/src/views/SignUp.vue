@@ -68,27 +68,21 @@ const signUp = async () => {
     for (const [key, value] of Object.entries(user)) {
         if (value === "" ) {
             alert("One of your inputs are empty, Please check and try again")
-    
             return
         }
     }
-    //Check that password are equal
+
     if(user.confirmPword != user.pword) {
         alert("Passwords do not match please try again");
-       
         return;
     }
-    //Check that email is a oldwestbury email
+
+    
     const isOwEmail = /^[^\s@]+@oldwestbury\.edu$/;
     if(!isOwEmail.test(user.email)) {
         alert("Your SUNY Old Westbury Email is not a valid email. Please try again")
         return;
     }
-
-    //TODO: check a regular email is input
-//make axios call
-//confirm a 200 response code that everything was added
-//take user to account page
 
 user.pword = await bcrypt.hash(user.pword, 10);  
   await axios.post(`${API_ENDPOINT}/signup`, user)
@@ -107,8 +101,6 @@ user.pword = await bcrypt.hash(user.pword, 10);
   });
 }
 
-//TODO: do this after main functionality is done
-//load their profile and go to the account page
 
 </script>
 

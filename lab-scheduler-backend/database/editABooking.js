@@ -1,16 +1,18 @@
+
+
 let editABooking = async(mysqlp, fs, editBookingForm) => {
     
-    const pool = mysqlp.createPool({
-      host: "unigathermysql.mysql.database.azure.com",
-      user: "bigdorya",
-      password: "owgather123!",
-      database: "unigather",
-      port: 3306,
-      ssl: { ca: fs.readFileSync("DigiCertGlobalRootCA.crt.pem") },
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0,
-    });
+  const pool = mysqlp.createPool({
+    host: process.env.SQL_HOSTNAME, 
+    user: process.env.SQL_USER, 
+    password: process.env.SQL_PW,
+    database: process.env.SQL_DB,
+    port: 3306,
+    ssl: { ca: fs.readFileSync("DigiCertGlobalRootCA.crt.pem") },
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+  });
 
     const {bookingId, newStartTime, newEndTime, newRoom, newDate} = editBookingForm;
     console.log(editBookingForm);

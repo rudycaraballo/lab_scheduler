@@ -12,12 +12,10 @@ let userBookings = ref([]);
 let fName = user.fName;
 
 
-//TODO: use username to check if they have any bookings and reactivly alter this page from it
 onBeforeMount(async () => {
   try {
     const response = await axios.get(`${API_ENDPOINT}/account-info`, {params:{userId: user.userId}});
     userBookings.value = response.data;
-    console.log(userBookings.value);
 
   } catch (error) {
     console.error('Error fetching users:', error);

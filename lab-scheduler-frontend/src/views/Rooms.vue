@@ -24,16 +24,9 @@ const avaialbleTimes= [
 ]
 
 function convertTo12hr(time24) {
-    // Extract hours and minutes from the time string
     const [hours, minutes] = time24.split(':').map(Number);
-
-    // Determine the period (AM/PM)
     const period = hours >= 12 ? 'PM' : 'AM';
-
-    // Calculate 12-hour format hours
-    const hours12 = hours % 12 || 12;  // Convert 0 to 12 for midnight
-
-    // Format time string as h:mm AM/PM
+    const hours12 = hours % 12 || 12;  
     const time12 = `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
     
     return time12;
@@ -49,14 +42,13 @@ let currentDay = ref(null)
 
 let today = new Date();
 let dd = String(today.getDate()).padStart(2, '0');
-let mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+let mm = String(today.getMonth() + 1).padStart(2, '0'); 
 let yyyy = today.getFullYear();
 
 // Format the current date as "YYYY-MM-DD"
 currentDay.value = yyyy + '-' + mm + '-' + dd;
 
 function isValidTimes(time1, time2) {
-  // Create Date objects for each time using generic date
   const dateTime1 = new Date(`October 13, 2014 ${time1}`);
   const dateTime2 = new Date(`October 13, 2014 ${time2}`);
 
@@ -82,8 +74,8 @@ const filterTime = async () => {
   
   try {
     
-    //TODO: make this one axios call and just have it return a joined table for all rooms that don't include anything in the booking table + rooms table 
     const filterResponse = await axios.get(`${API_ENDPOINT}/filtered-bookings`, {params: bookingFilter})
+
     //any rooms are filtered?
     if(filterResponse.data.length >= 1) {
 
@@ -146,7 +138,7 @@ if(filler.length > 0 ) {
       });
 }
 
-//Loading all rooms before mounting
+
 onBeforeMount(async () => {
   try {
     const response = await axios.get(`${API_ENDPOINT}/available-rooms`);
@@ -208,7 +200,7 @@ onBeforeMount(async () => {
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <div v-for="page in pages" :key="page"> <!-- Loop 3 times -->
+          <div v-for="page in pages" :key="page"> 
             <li :key="page" class="page-item"><a @click="changePage(page)" class="page-link" href="#">{{ page}}</a></li>
           </div>
           <li class="page-item">
