@@ -5,6 +5,7 @@ const props = defineProps(["room"])
 
 let roomNumFixed = props.room.RoomNum < 1000 ? ("0" + props.room.RoomNum) : props.room.RoomNum;
 const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
+const roomUrl = `/room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
 
 </script>
 
@@ -18,7 +19,7 @@ const imageUrl = ref(`/rm${roomNumFixed}.jpg`);
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <RouterLink to="/room-desc" class="btn btn-sm">View Room</RouterLink>
+                  <RouterLink :to=roomUrl class="btn btn-sm">View Room</RouterLink>
                 </div>
                 <small class="text-body-secondary">9 mins</small>
               </div>
