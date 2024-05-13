@@ -16,12 +16,14 @@ const roomUrl = `/room-desc/${props.room.RoomNum}/${props.room.BuildingName}`
               <img class="rm-img" :src=imageUrl></img>
             </div>
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Building: {{room.BuildingName}}</p>
+              <p class="card-text">Room Number: {{roomNumFixed}}</p>
+              <p class="card-text">Capacity: {{room.Capacity}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <RouterLink :to=roomUrl class="btn btn-sm">View Room</RouterLink>
                 </div>
-                <small class="text-body-secondary">9 mins</small>
+                <small class="text-body-secondary">Available Today</small>
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@
       </button>
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+      <div class="accordion-body"> After creating an account you can log in and explore available rooms for booking <a href="https://unigather.netlify.app/rooms">here.</a></div>
     </div>
   </div>
   <div class="accordion-item">
@@ -32,27 +32,27 @@
       </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+      <div class="accordion-body">To make and account you need to make an account at our sign up page. The sign up page link is located <a href="https://unigather.netlify.app/sign-up">here.</a></div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-        How Do I Edit A Booking
+        How Do I Cancel A Booking
       </button>
     </h2>
     <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+      <div class="accordion-body">Head over to your <a href="https://unigather.netlify.app/account">account</a> page. All individua bookings will be able to be canceled there within your booking card.</div>
     </div>
   </div>
 </div>
                
                 <!-- Support Button-->
-                <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                <!-- <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
                     <i class="lni-emoji-sad"></i>
                     <p class="mb-0 px-2">Can't find your answers?</p>
                     <a href="#"> Contact us</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

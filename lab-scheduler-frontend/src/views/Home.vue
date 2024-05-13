@@ -37,8 +37,9 @@ onBeforeMount(async () => {
  
   <div class="row featurette">
     <div class="col-md-5">
-      <h2 class="featurette-heading fw-normal lh-1">Multiple Conference Rooms available <span class="text-body-secondary">It’ll blow your mind.</span></h2>
-      <p class="lead">Some great placeholder content for the first rooms that will be descirbed.</p>
+      <h2 class="featurette-heading fw-normal lh-1">Multiple Conference Rooms Available <span class="text-body-secondary"></span></h2>
+      <p class="lead">Located at SUNY Old Westbury we have a variatey of conference rooms, labs, and classrooms ready to be reserved 
+        throughout the semester. Whether you need a temporary classroom for a presentation, a conference room for a meeting, or a space for an event, we have it!</p>
     </div>
     <div class="col-md-7">
       <img class="campus-img" src="/mainCampus.jpg" alt="" srcset="">
